@@ -329,7 +329,6 @@
     return button;
   }
 
-
   function syncMobileTechnologyCarouselSlides() {
     if (window.innerWidth > 809.98) {
       return;
@@ -460,20 +459,14 @@
       });
 
       var state = {
-  index: 0,
-  slideWidth: 0,
-  slideHeight: 0,
-  timer: 0,
-  dragStartX: 0,
-  dragStartY: 0,
-  dragDelta: 0,
-  dragging: false,
-  pointerId: null
-};
-
-function useVerticalTechCarousel() {
-  return window.innerWidth >= 810 && window.innerWidth <= 1199.98;
-}
+        index: 0,
+        slideWidth: 0,
+        timer: 0,
+        dragStartX: 0,
+        dragDelta: 0,
+        dragging: false,
+        pointerId: null
+      };
 
       function updateStatus() {
         var activeIndex = state.index % items.length;
@@ -503,17 +496,11 @@ function useVerticalTechCarousel() {
         });
       }
 
-      function applyTransform(animate, deltaValue) {
-  track.style.transition = animate ? "" : "none";
-
-  if (useVerticalTechCarousel()) {
-    var offsetY = -state.index * state.slideHeight + (deltaValue || 0);
-    track.style.transform = "translate3d(0," + offsetY + "px,0)";
-  } else {
-    var offsetX = -state.index * state.slideWidth + (deltaValue || 0);
-    track.style.transform = "translate3d(" + offsetX + "px,0,0)";
-  }
-}
+      function applyTransform(animate, deltaX) {
+        var offset = -state.index * state.slideWidth + (deltaX || 0);
+        track.style.transition = animate ? "" : "none";
+        track.style.transform = "translate3d(" + offset + "px,0,0)";
+      }
 
       function scheduleAuto(delay) {
         window.clearTimeout(state.timer);
@@ -531,38 +518,23 @@ function useVerticalTechCarousel() {
       }
 
       function refresh() {
-  if (!isRenderable(section)) {
-    return;
-  }
+        if (!isRenderable(section)) {
+          return;
+        }
 
-  state.slideWidth = Math.max(viewport.clientWidth, 1);
-  state.slideHeight = Math.max(viewport.clientHeight, 1);
+        state.slideWidth = Math.max(viewport.clientWidth, 1);
+        track.style.width = state.slideWidth * items.length + "px";
+        track.style.flexDirection = "row";
 
-  if (useVerticalTechCarousel()) {
-    track.style.width = "100%";
-    track.style.height = state.slideHeight * items.length + "px";
-    track.style.flexDirection = "column";
+        items.forEach(function (item) {
+          item.style.width = state.slideWidth + "px";
+          item.style.height = "100%";
+          item.style.flexBasis = state.slideWidth + "px";
+        });
 
-    items.forEach(function (item) {
-      item.style.width = "100%";
-      item.style.height = state.slideHeight + "px";
-      item.style.flexBasis = state.slideHeight + "px";
-    });
-  } else {
-    track.style.height = "100%";
-    track.style.width = state.slideWidth * items.length + "px";
-    track.style.flexDirection = "row";
-
-    items.forEach(function (item) {
-      item.style.width = state.slideWidth + "px";
-      item.style.height = "100%";
-      item.style.flexBasis = state.slideWidth + "px";
-    });
-  }
-
-  applyTransform(false, 0);
-  updateStatus();
-}
+        applyTransform(false, 0);
+        updateStatus();
+      }
 
       function handlePointerDown(event) {
         if (event.pointerType === "mouse" && event.button !== 0) {
@@ -579,10 +551,7 @@ function useVerticalTechCarousel() {
         state.dragging = true;
         state.pointerId = event.pointerId;
         state.dragStartX = event.clientX;
-        state.dragDelta = useVerticalTechCarousel()
-  ? event.clientY - state.dragStartY
-  : event.clientX - state.dragStartX;
-        state.dragStartY = event.clientY;
+        state.dragDelta = 0;
         track.classList.add("is-dragging");
         window.clearTimeout(state.timer);
 

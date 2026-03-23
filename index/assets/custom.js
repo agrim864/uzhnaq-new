@@ -266,7 +266,7 @@ document.addEventListener("DOMContentLoaded", () => {
     },
   };
   let footerAnchorSyncRegistered = false;
-  const responsiveNavBreakpoint = window.matchMedia("(max-width: 1199px)");
+  const responsiveNavBreakpoint = window.matchMedia("(max-width: 809.98px)");
   let responsiveFoundationRefreshQueued = false;
   let responsiveFoundationListenersRegistered = false;
   const responsiveDropdownStates = [];
@@ -575,6 +575,8 @@ document.addEventListener("DOMContentLoaded", () => {
       .replace(/"/g, "&quot;")
       .replace(/'/g, "&#39;");
   }
+
+
 
   function escapeAttribute(value) {
     return escapeHtml(value);
@@ -2952,43 +2954,54 @@ renderer.render(scene, camera);
   }
 
   function syncHomepageSocialHub(attempt = 0) {
-    if (!isHomepageLike) {
-      return;
-    }
-
-    const socialHubSection = document.querySelector(
-      "[data-site-social-hub-mounted='true']",
-    );
-    const visibleTestimonials = findVisibleElement(
-      '[data-uzhnaq-name="Testimonials"]',
-    );
-
-    if (!(visibleTestimonials instanceof HTMLElement)) {
-      if (!(socialHubSection instanceof HTMLElement) && attempt < 8) {
-        window.setTimeout(() => initializeHomepageSocialHub(attempt + 1), 120);
-      }
-      return;
-    }
-
-    const insertionAnchor =
-      visibleTestimonials.closest(".ssr-variant") || visibleTestimonials;
-    if (!(insertionAnchor instanceof HTMLElement)) {
-      return;
-    }
-
-    let mountedSection = socialHubSection;
-    if (!(mountedSection instanceof HTMLElement)) {
-      mountedSection = document.createElement("section");
-      mountedSection.className = "site-social-hub-section";
-      mountedSection.id = "site-social-hub-section";
-      mountedSection.dataset.siteSocialHubMounted = "true";
-      mountedSection.innerHTML = buildHomepageSocialHubMarkup();
-    }
-
-    if (mountedSection.previousElementSibling !== insertionAnchor) {
-      insertionAnchor.insertAdjacentElement("afterend", mountedSection);
-    }
+  if (!isHomepageLike) {
+    return;
   }
+
+  let mountedSection = document.querySelector(
+    "[data-site-social-hub-mounted='true']",
+  );
+
+  if (!(mountedSection instanceof HTMLElement)) {
+    mountedSection = document.createElement("section");
+    mountedSection.className = "site-social-hub-section";
+    mountedSection.id = "site-social-hub-section";
+    mountedSection.dataset.siteSocialHubMounted = "true";
+    mountedSection.innerHTML = buildHomepageSocialHubMarkup();
+  }
+
+  const visibleFooterShell = findVisibleElement(
+    ".site-footer-wrapper, .footer-live-root, #site-footer-shell, .site-footer-shell",
+  );
+
+  if (visibleFooterShell instanceof HTMLElement) {
+    const footerAnchor =
+      visibleFooterShell.closest(".site-footer-wrapper") || visibleFooterShell;
+
+    if (mountedSection.nextElementSibling !== footerAnchor) {
+      footerAnchor.insertAdjacentElement("beforebegin", mountedSection);
+    }
+    return;
+  }
+
+  const visibleTestimonials = findVisibleElement(
+    '[data-uzhnaq-name="Testimonials"]',
+  );
+
+  if (!(visibleTestimonials instanceof HTMLElement)) {
+    if (attempt < 8) {
+      window.setTimeout(() => initializeHomepageSocialHub(attempt + 1), 120);
+    }
+    return;
+  }
+
+  const insertionAnchor =
+    visibleTestimonials.closest(".ssr-variant") || visibleTestimonials;
+
+  if (mountedSection.previousElementSibling !== insertionAnchor) {
+    insertionAnchor.insertAdjacentElement("afterend", mountedSection);
+  }
+}
 
   function initializeHomepageSocialHub(attempt = 0) {
     syncHomepageSocialHub(attempt);
@@ -3026,7 +3039,7 @@ renderer.render(scene, camera);
   }
 
   function isCompactNavigationMode() {
-    return responsiveNavBreakpoint.matches || window.innerWidth < 1200;
+    return responsiveNavBreakpoint.matches;
   }
 
   function updateResponsiveFoundationMode() {
@@ -3932,6 +3945,22 @@ document.addEventListener("DOMContentLoaded", () => {
         return width;
       }
 
+     function replaceGlobalMapWithStaticImage() {
+  const mapRoot = document.querySelector(".uzhnaq-1oiuly");
+  if (!(mapRoot instanceof HTMLElement)) return;
+
+  mapRoot.classList.add("site-static-map-root");
+  mapRoot.innerHTML = `
+    <div class="site-static-map-frame">
+      <img
+        class="site-static-map-image"
+        src="./assets/map.png"
+        alt="Our Global Presence map"
+      />
+    </div>
+  `;
+}
+
       function render() {
         const width = measure();
         track.style.transform = `translate3d(${-index * width}px,0,0)`;
@@ -3981,6 +4010,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   ensureMobileHeaderButtonsStable();
   initCarouselControlsFallback();
+  replaceGlobalMapWithStaticImage();
   window.addEventListener('resize', ensureMobileHeaderButtonsStable);
 });
 

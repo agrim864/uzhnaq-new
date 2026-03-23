@@ -1,5 +1,5 @@
 :root {
-  --uzhnaq-responsive-nav-breakpoint: 1200px;
+  --uzhnaq-responsive-nav-breakpoint: 810px;
   --uzhnaq-responsive-shell-gap: clamp(16px, 2vw, 28px);
 }
 
@@ -573,36 +573,34 @@ body,
 
 @media (max-width: 1199px) {
   :root[data-uzhnaq-responsive-mode="accordion"] .site-nav-item-shell,
-  :root[data-uzhnaq-responsive-mode="accordion"] .has-premium-dropdown,
-  [data-uzhnaq-root] .site-nav-item-shell,
-  [data-uzhnaq-root] .has-premium-dropdown {
+  :root[data-uzhnaq-responsive-mode="accordion"] .has-premium-dropdown {
     width: 100%;
   }
 
   :root[data-uzhnaq-responsive-mode="accordion"] .site-nav-trigger,
-  [data-uzhnaq-root] .site-nav-trigger {
+  :root[data-uzhnaq-responsive-mode="accordion"] .site-nav-trigger {
     width: 100%;
     justify-content: space-between;
   }
 
   :root[data-uzhnaq-responsive-mode="accordion"] .site-nav-item-shell,
-  [data-uzhnaq-root] .site-nav-item-shell {
+  :root[data-uzhnaq-responsive-mode="accordion"] .site-nav-item-shell {
     flex-wrap: wrap;
   }
 
   :root[data-uzhnaq-responsive-mode="accordion"] .site-nav-dropdown-panel,
-  [data-uzhnaq-root] .site-nav-dropdown-panel {
+  :root[data-uzhnaq-responsive-mode="accordion"] .site-nav-dropdown-panel {
     flex: 0 0 100%;
     width: 100%;
   }
 
   :root[data-uzhnaq-responsive-mode="accordion"] .site-nav-item-shell,
-  [data-uzhnaq-root] .site-nav-item-shell {
+  :root[data-uzhnaq-responsive-mode="accordion"] .site-nav-item-shell {
     padding-inline: 0;
   }
 
   :root[data-uzhnaq-responsive-mode="accordion"] .premium-dropdown,
-  [data-uzhnaq-root] .premium-dropdown {
+  :root[data-uzhnaq-responsive-mode="accordion"] .premium-dropdown {
     position: static !important;
     inset: auto !important;
     left: auto !important;
@@ -619,7 +617,8 @@ body,
 
   :root[data-uzhnaq-responsive-mode="accordion"]
     .premium-dropdown:not(.visible),
-  [data-uzhnaq-root] .premium-dropdown:not(.visible) {
+  :root[data-uzhnaq-responsive-mode="accordion"]
+    .premium-dropdown:not(.visible) {
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
@@ -631,7 +630,7 @@ body,
   }
 
   :root[data-uzhnaq-responsive-mode="accordion"] .premium-dropdown.visible,
-  [data-uzhnaq-root] .premium-dropdown.visible {
+  :root[data-uzhnaq-responsive-mode="accordion"] .premium-dropdown.visible {
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
@@ -641,30 +640,40 @@ body,
     overflow: hidden;
   }
 
-  [data-uzhnaq-root] .site-footer-blueprint,
-  [data-uzhnaq-root] .site-footer-gear-overlay {
+  :root[data-uzhnaq-responsive-mode="accordion"] [data-uzhnaq-root]
+    .site-footer-blueprint,
+  :root[data-uzhnaq-responsive-mode="accordion"] [data-uzhnaq-root]
+    .site-footer-gear-overlay {
     width: min(100%, 640px) !important;
   }
 
-  [data-uzhnaq-root] .uzhnaq-10mrn1k.site-home-title-has-loader {
+  :root[data-uzhnaq-responsive-mode="accordion"] [data-uzhnaq-root]
+    .uzhnaq-10mrn1k.site-home-title-has-loader {
     padding-left: clamp(20px, 4vw, 28px);
   }
 
-  [data-home-hero-visual-placeholder="true"]::before {
+  :root[data-uzhnaq-responsive-mode="accordion"]
+    [data-home-hero-visual-placeholder="true"]::before {
     background-size: 100% 52px, 52px 100%;
     opacity: 0.16;
   }
 
-  [data-home-hero-visual-placeholder="true"] .site-home-hero-machine-shell {
+  :root[data-uzhnaq-responsive-mode="accordion"]
+    [data-home-hero-visual-placeholder="true"]
+    .site-home-hero-machine-shell {
     transform: scale(0.97) translateX(4%);
     transform-origin: center;
   }
 
-  [data-home-hero-visual-placeholder="true"] .site-home-hero-machine-stage {
+  :root[data-uzhnaq-responsive-mode="accordion"]
+    [data-home-hero-visual-placeholder="true"]
+    .site-home-hero-machine-stage {
     transform: translateX(18px) scale(0.96);
   }
 
-  [data-home-hero-visual-placeholder="true"] .site-home-hero-machine-sweep {
+  :root[data-uzhnaq-responsive-mode="accordion"]
+    [data-home-hero-visual-placeholder="true"]
+    .site-home-hero-machine-sweep {
     left: 56%;
     width: 22%;
   }

@@ -2597,7 +2597,7 @@ form [data-enquiry-invalid="true"] {
   }
 }
 
-@media (max-width: 1199px) and (min-width: 810px) {
+@media (max-width: 809.98px) {
   [data-uzhnaq-root] .uzhnaq-e0xo4r-container > .uzhnaq-1jtqeum {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     grid-template-areas:
@@ -3147,7 +3147,7 @@ form [data-enquiry-invalid="true"] {
   }
 }
 
-@media (max-width: 1199px) {
+@media (max-width: 809.98px) {
   [data-uzhnaq-root] .uzhnaq-e0xo4r-container > .footer-live-root {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
     grid-template-areas:
@@ -4022,7 +4022,7 @@ form [data-enquiry-invalid="true"] {
   }
 }
 
-@media (max-width: 1199px) {
+@media (max-width: 809.98px) {
   .site-facts-gallery {
     width: min(1240px, calc(100% - 24px));
   }
@@ -4489,7 +4489,7 @@ a[href],
   }
 }
 
-@media (max-width: 1199px) and (min-width: 810px) {
+@media (max-width: 809.98px) {
   [data-uzhnaq-root].uzhnaq-jUePe .uzhnaq-s065mu {
     top: 4.5% !important;
     bottom: auto !important;
@@ -4923,7 +4923,7 @@ body,
   min-width: 0 !important;
 }
 
-@media (max-width: 1199.98px) {
+@media (max-width: 809.98px) {
   #main {
     width: 100% !important;
     max-width: 100% !important;
@@ -5231,422 +5231,477 @@ body,
   }
 }
 
-/* ===== Tablet / small-desktop stabilizer =====
-   Fixes only the 810px–1199.98px range without changing desktop or mobile
-*/
 @media (min-width: 810px) and (max-width: 1199.98px) {
   html,
-  body,
-  #main {
-    width: 100% !important;
-    max-width: 100% !important;
-    min-width: 0 !important;
-    overflow-x: clip !important;
-  }
-
-  /* remove the zoom hack that is causing shuffle / invisibility */
-  #main {
-    zoom: 1 !important;
-    transform: none !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-  }
-
-  [data-uzhnaq-root] {
-    width: 100% !important;
-    max-width: 100% !important;
-  }
-
-  /* keep header links visible before mobile */
-  nav[data-uzhnaq-name="Phone"] {
-    display: none !important;
-  }
-
-  [data-uzhnaq-root] [data-uzhnaq-name="Links"] {
-    display: flex !important;
-    flex-wrap: wrap !important;
-    align-items: center !important;
-    justify-content: center !important;
-    gap: 8px 10px !important;
-    width: auto !important;
-    max-width: 100% !important;
-    overflow: visible !important;
-  }
-
-  .site-nav-item-shell,
-  .site-nav-link,
-  .site-nav-trigger {
-    min-height: 34px !important;
-  }
-
-  .site-nav-item-shell {
-    padding: 0 10px !important;
-  }
-
-  .site-nav-link .uzhnaq-text,
-  .site-nav-trigger .uzhnaq-text,
-  .has-premium-dropdown .uzhnaq-text {
-    font-size: 13px !important;
-    line-height: 1.1 !important;
-    white-space: nowrap !important;
-  }
-
-  /* keep section order stable */
-  [data-uzhnaq-root] > *,
-  [data-uzhnaq-root] > .ssr-variant > * {
-    order: initial !important;
-  }
-
-  [data-uzhnaq-root] section,
-  [data-uzhnaq-root] nav,
-  [data-uzhnaq-root] footer,
-  [data-uzhnaq-root] > div {
-    position: relative !important;
-    z-index: auto !important;
-  }
-
-  /* keep hero visible and sized */
-  [data-home-hero-visual-placeholder="true"] {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    min-height: 420px !important;
-    height: 100% !important;
-    background: transparent !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-    overflow: hidden !important;
-  }
-
-  [data-home-hero-visual-placeholder="true"]::before,
-  [data-home-hero-visual-placeholder="true"]::after {
-    display: none !important;
-  }
-
-  .site-home-hero-3d-wrap {
-    display: block !important;
-    width: min(100%, 720px) !important;
-    height: 420px !important;
-    min-height: 420px !important;
-    margin: 0 auto !important;
-    position: relative !important;
-    z-index: 3 !important;
-  }
-
-  .site-home-hero-3d-model,
-  #gearbox-canvas {
-    display: block !important;
-    width: 100% !important;
-    height: 100% !important;
-    min-height: 420px !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-  }
-
-  /* Trusted by 150+ clients worldwide cards */
-  .uzhnaq-z4ble0 {
-    display: grid !important;
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-    gap: 18px !important;
-    align-items: stretch !important;
-  }
-
-  .uzhnaq-z4ble0 > * {
-    min-width: 0 !important;
-    width: auto !important;
-  }
-
-  .uzhnaq-z4ble0 .uzhnaq-1v2ekhd-container,
-  .uzhnaq-z4ble0 [data-border="true"] {
-    width: 100% !important;
-    height: 100% !important;
-    min-width: 0 !important;
-  }
-
-  /* map scrollbar cleanup */
-  iframe[src*="google.com/maps"],
-  iframe[src*="maps.google.com"] {
-    display: block !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    border: 0 !important;
-    overflow: hidden !important;
-  }
-
-  iframe[src*="google.com/maps"]::-webkit-scrollbar,
-  iframe[src*="maps.google.com"]::-webkit-scrollbar {
-    display: none !important;
-  }
-
-  iframe[src*="google.com/maps"],
-  iframe[src*="maps.google.com"] {
-    scrollbar-width: none !important;
-  }
-
-  iframe[src*="google.com/maps"] {
-    min-height: 360px !important;
-  }
-
-  /* carousel must stay visible */
-  .static-tech-carousel,
-  .static-tech-viewport,
-  .static-tech-track,
-  .static-tech-slide-item,
-  .static-tech-slide {
-    opacity: 1 !important;
-    visibility: visible !important;
-    display: block !important;
-  }
-
-  .static-tech-viewport {
-    overflow: hidden !important;
-    min-height: 420px !important;
-    height: 420px !important;
-  }
-
-  .static-tech-track {
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: stretch !important;
-  }
-
-  .static-tech-slide-item {
-    flex: 0 0 100% !important;
-    width: 100% !important;
-    height: 100% !important;
-  }
-
-  .static-tech-slide {
-    width: 100% !important;
-    height: 100% !important;
-    overflow: hidden !important;
-  }
-
-  .static-tech-slide [data-uzhnaq-background-image-wrapper="true"],
-  .static-tech-slide [data-uzhnaq-background-image-wrapper="true"] img {
-    opacity: 1 !important;
-    visibility: visible !important;
-    display: block !important;
-  }
-}
-
-@media (min-width: 810px) and (max-width: 930px) {
-  .uzhnaq-z4ble0 {
-    grid-template-columns: 1fr !important;
-  }
-
-  .site-home-hero-3d-wrap,
-  .static-tech-viewport {
-    height: 360px !important;
-    min-height: 360px !important;
-  }
-
-  .site-home-hero-3d-model,
-  #gearbox-canvas {
-    min-height: 360px !important;
-  }
-}
-
-/* ===== Tablet / small-desktop fixes only ===== */
-@media (min-width: 810px) and (max-width: 1199.98px) {
-  html,
-  body,
-  #main {
-    width: 100% !important;
-    max-width: 100% !important;
+  body {
     overflow-x: hidden !important;
   }
 
+  body {
+    min-width: 0 !important;
+  }
+
   #main {
-    zoom: 1 !important;
+    width: 1200px !important;
+    max-width: none !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    zoom: calc(100vw / 1200) !important;
     transform: none !important;
-    margin: 0 !important;
-  }
-
-  /* 1) Header: keep links horizontal */
-  nav[data-uzhnaq-name="Phone"] {
-    height: auto !important;
-    min-height: 0 !important;
-    overflow: visible !important;
-    padding: 10px 18px 8px !important;
-  }
-
-  nav[data-uzhnaq-name="Phone"] [data-uzhnaq-name="Links"],
-  nav[data-uzhnaq-name="Phone"] .uzhnaq-ou6vy8,
-  nav[data-uzhnaq-name="Phone"] .uzhnaq-b96owu,
-  nav[data-uzhnaq-name="Phone"] .uzhnaq-1r4coek,
-  nav[data-uzhnaq-name="Phone"] [data-uzhnaq-name="Icon"],
-  nav[data-uzhnaq-name="Phone"] .site-phone-nav-button,
-  nav[data-uzhnaq-name="Phone"] .site-phone-nav-toggle {
-    display: none !important;
-  }
-
-  nav[data-uzhnaq-name="Phone"] .site-mobile-header-links {
-    display: flex !important;
-    flex-direction: row !important;
-    flex-wrap: nowrap !important;
-    justify-content: center !important;
-    align-items: center !important;
-    gap: 10px !important;
-    width: 100% !important;
-    margin: 0 auto !important;
-    position: relative !important;
-    z-index: 20 !important;
-  }
-
-  nav[data-uzhnaq-name="Phone"] .site-mobile-header-link {
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    min-height: 38px !important;
-    padding: 8px 14px !important;
-    white-space: nowrap !important;
-    border-radius: 999px !important;
-    font: 600 13px/1 Inter, Arial, sans-serif !important;
-  }
-
-  /* 2) Trusted by 150+ section: stop overlap/clipping */
-  .site-facts-ring {
-    display: grid !important;
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-    gap: 20px !important;
-    width: 100% !important;
-    max-width: 920px !important;
-    margin: 0 auto !important;
-    padding: 0 !important;
-    animation: none !important;
-    transform: none !important;
-    overflow: visible !important;
-  }
-
-  .site-fact-card {
-    position: relative !important;
-    top: auto !important;
-    left: auto !important;
-    right: auto !important;
-    bottom: auto !important;
-    width: 100% !important;
-    min-height: 240px !important;
-    height: auto !important;
-    transform: none !important;
-    margin: 0 !important;
-  }
-
-  .site-fact-card *,
-  .site-facts-ring * {
-    writing-mode: horizontal-tb !important;
-    text-orientation: mixed !important;
-    word-break: normal !important;
-    overflow-wrap: break-word !important;
-  }
-
-  /* 3) Keep hero stable in this range */
-  [data-home-hero-visual-placeholder="true"] {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    min-height: 420px !important;
-    overflow: hidden !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-    background: transparent !important;
-  }
-
-  .site-home-hero-3d-wrap {
-    width: min(100%, 720px) !important;
-    height: 420px !important;
-    min-height: 420px !important;
-    margin: 0 auto !important;
-    display: block !important;
-  }
-
-  .site-home-hero-3d-model,
-  #gearbox-canvas {
-    display: block !important;
-    width: 100% !important;
-    height: 100% !important;
-    min-height: 420px !important;
-  }
-
-  /* 4) Map: centered, smaller, no scrollbars */
-  .static-global-map {
-    width: min(100%, 980px) !important;
-    max-width: calc(100% - 40px) !important;
-    margin: 0 auto !important;
-    overflow: hidden !important;
-  }
-
-  .static-global-map img,
-  .static-global-map svg,
-  .static-global-map canvas,
-  .static-global-map iframe {
-    display: block !important;
-    width: 100% !important;
-    height: auto !important;
-    max-width: 100% !important;
-    margin: 0 auto !important;
-  }
-
-  .static-global-map,
-  .static-global-map * {
-    scrollbar-width: none !important;
-  }
-
-  .static-global-map::-webkit-scrollbar,
-  .static-global-map *::-webkit-scrollbar {
-    display: none !important;
-  }
-
-  /* 5) Carousel viewport only: keep buttons/dots untouched */
-  .static-tech-carousel {
-    display: flex !important;
-    justify-content: center !important;
-    align-items: stretch !important;
-    width: 100% !important;
-  }
-
-  .static-tech-viewport {
-    width: min(100%, 760px) !important;
-    height: 980px !important;
-    min-height: 980px !important;
-    margin: 0 auto !important;
-    overflow: hidden !important;
-  }
-
-  .static-tech-slide-item,
-  .static-tech-slide {
-    width: 100% !important;
-    height: 980px !important;
-    min-height: 980px !important;
-  }
-
-  .static-tech-slide [data-uzhnaq-background-image-wrapper="true"] {
-    inset: 18px 18px auto 18px !important;
-    height: 420px !important;
-  }
-
-  .static-tech-slide [data-uzhnaq-background-image-wrapper="true"] img {
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: cover !important;
   }
 }
 
-@media (min-width: 810px) and (max-width: 930px) {
-  .site-facts-ring {
+/* =========================================================
+   FINAL RESPONSIVE CORRECTIONS
+   ========================================================= */
+
+/* remove the global right-shift / fake full-bleed offset */
+html,
+body,
+#main {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow-x: hidden !important;
+}
+
+[data-uzhnaq-root] {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 auto !important;
+}
+
+[data-uzhnaq-root] > :is(div, section, nav, footer),
+[data-uzhnaq-root] > .ssr-variant > :is(div, section, nav, footer),
+[data-uzhnaq-root] .uzhnaq-1ytqfhu,
+[data-uzhnaq-root] .uzhnaq-1jf2fz0 .uzhnaq-9gavgo {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  left: auto !important;
+  right: auto !important;
+  transform: none !important;
+}
+
+/* desktop + tablet header: logo left, nav right */
+nav[data-uzhnaq-name="Default"],
+nav[data-uzhnaq-name="large"],
+nav[data-uzhnaq-name="laptop"],
+nav[data-uzhnaq-name="tablet"] {
+  display: flex !important;
+  align-items: center !important;
+  width: 100% !important;
+}
+
+nav[data-uzhnaq-name="Default"] > [data-uzhnaq-name="Name"],
+nav[data-uzhnaq-name="large"] > [data-uzhnaq-name="Name"],
+nav[data-uzhnaq-name="laptop"] > [data-uzhnaq-name="Name"],
+nav[data-uzhnaq-name="tablet"] > [data-uzhnaq-name="Name"] {
+  flex: 0 0 auto !important;
+}
+
+nav[data-uzhnaq-name="Default"] > [data-uzhnaq-name="Links"],
+nav[data-uzhnaq-name="large"] > [data-uzhnaq-name="Links"],
+nav[data-uzhnaq-name="laptop"] > [data-uzhnaq-name="Links"],
+nav[data-uzhnaq-name="tablet"] > [data-uzhnaq-name="Links"] {
+  margin-left: auto !important;
+  display: flex !important;
+  justify-content: flex-end !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  gap: clamp(12px, 1.5vw, 28px) !important;
+  width: auto !important;
+  max-width: calc(100% - 180px) !important;
+}
+
+/* socials section: full width handling, no clipping, always above footer */
+.site-social-hub-section {
+  width: min(100%, calc(100% - 32px)) !important;
+  max-width: 1400px !important;
+  margin: 0 auto 32px !important;
+  overflow: hidden !important;
+}
+
+.site-social-hub-shell,
+.site-social-hub-grid {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow: hidden !important;
+}
+
+.site-social-hub-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 20px !important;
+}
+
+.site-social-hub-grid > * {
+  min-width: 0 !important;
+  max-width: 100% !important;
+}
+
+
+
+[data-uzhnaq-root] .uzhnaq-17r2ggy * {
+  scrollbar-width: none !important;
+}
+
+[data-uzhnaq-root] .uzhnaq-17r2ggy *::-webkit-scrollbar {
+  display: none !important;
+}
+
+/* carousel: keep same horizontal layout as desktop, only smaller */
+.uzhnaq--slideshow-controls {
+  z-index: 40 !important;
+}
+
+.uzhnaq--slideshow-controls > div:first-child {
+  position: absolute !important;
+  top: 50% !important;
+  left: 12px !important;
+  right: 12px !important;
+  bottom: auto !important;
+  inset: auto 12px auto 12px !important;
+  transform: translateY(-50%) !important;
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  pointer-events: none !important;
+}
+
+.uzhnaq--slideshow-controls > div:first-child > button[aria-label="Previous"],
+.uzhnaq--slideshow-controls > div:first-child > button[aria-label="Next"] {
+  width: 42px !important;
+  height: 42px !important;
+  border-radius: 999px !important;
+  pointer-events: auto !important;
+  transform: none !important;
+}
+
+.uzhnaq--slideshow-controls > div:nth-child(2) {
+  position: absolute !important;
+  left: 50% !important;
+  right: auto !important;
+  top: auto !important;
+  bottom: 14px !important;
+  transform: translateX(-50%) !important;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  padding: 8px 12px !important;
+  border-radius: 999px !important;
+  background: rgba(0, 0, 0, 0.28) !important;
+}
+
+.uzhnaq--slideshow-controls > div:nth-child(2) > button {
+  margin: 0 !important;
+}
+
+.uzhnaq--slideshow-controls + *,
+.uzhnaq--slideshow-controls,
+.uzhnaq--slideshow-controls:has(button) {
+  writing-mode: horizontal-tb !important;
+}
+
+/* mobile refinements */
+@media (max-width: 809.98px) {
+  .site-social-hub-section {
+    width: calc(100% - 20px) !important;
+    margin: 0 auto 24px !important;
+  }
+
+  .site-social-hub-grid {
     grid-template-columns: 1fr !important;
-    max-width: 620px !important;
+    gap: 16px !important;
   }
 
-  .static-tech-viewport {
-    width: min(100%, 640px) !important;
-    height: 900px !important;
-    min-height: 900px !important;
+  nav[data-uzhnaq-name="Phone"] {
+    padding-bottom: 12px !important;
+    overflow: visible !important;
   }
 
-  .static-tech-slide-item,
-  .static-tech-slide {
-    height: 900px !important;
-    min-height: 900px !important;
+  nav[data-uzhnaq-name="Phone"] .site-mobile-header-links {
+    width: calc(100% - 20px) !important;
+    margin: 10px auto 0 !important;
+  }
+
+  [data-uzhnaq-root] .uzhnaq-1oiuly,
+  [data-uzhnaq-root] .uzhnaq-17r2ggy {
+    width: 100% !important;
+    max-width: 100% !important;
+    transform: none !important;
+  }
+
+  [data-uzhnaq-root] .uzhnaq-17r2ggy {
+    min-height: clamp(220px, 42vw, 420px) !important;
+  }
+
+  .uzhnaq--slideshow-controls > div:first-child {
+    left: 10px !important;
+    right: 10px !important;
+  }
+
+  .uzhnaq--slideshow-controls > div:first-child > button[aria-label="Previous"],
+  .uzhnaq--slideshow-controls > div:first-child > button[aria-label="Next"] {
+    width: 38px !important;
+    height: 38px !important;
+  }
+
+  .uzhnaq--slideshow-controls > div:nth-child(2) {
+    bottom: 10px !important;
+    gap: 6px !important;
+    padding: 6px 10px !important;
+  }
+}
+
+@media (max-width: 560px) {
+  .site-social-hub-section {
+    width: calc(100% - 16px) !important;
+  }
+
+  nav[data-uzhnaq-name="Phone"] .site-mobile-header-links {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    width: calc(100% - 16px) !important;
+  }
+}
+
+/* =========================================================
+   HEADER + MAP FINAL FIX
+   ========================================================= */
+
+/* ---------- HEADER: logo left, links right, no overlap ---------- */
+nav[data-uzhnaq-name="Default"],
+nav[data-uzhnaq-name="large"],
+nav[data-uzhnaq-name="laptop"],
+nav[data-uzhnaq-name="tablet"] {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 24px !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+nav[data-uzhnaq-name="Default"] > [data-uzhnaq-name="Name"],
+nav[data-uzhnaq-name="large"] > [data-uzhnaq-name="Name"],
+nav[data-uzhnaq-name="laptop"] > [data-uzhnaq-name="Name"],
+nav[data-uzhnaq-name="tablet"] > [data-uzhnaq-name="Name"] {
+  flex: 0 0 auto !important;
+  min-width: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  margin-right: auto !important;
+  z-index: 3 !important;
+}
+
+nav[data-uzhnaq-name="Default"] > [data-uzhnaq-name="Links"],
+nav[data-uzhnaq-name="large"] > [data-uzhnaq-name="Links"],
+nav[data-uzhnaq-name="laptop"] > [data-uzhnaq-name="Links"],
+nav[data-uzhnaq-name="tablet"] > [data-uzhnaq-name="Links"] {
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+  max-width: none !important;
+  margin-left: auto !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  flex-wrap: wrap !important;
+  gap: clamp(10px, 1.35vw, 24px) !important;
+  overflow: visible !important;
+}
+
+nav[data-uzhnaq-name="Default"] > [data-uzhnaq-name="Links"] > *,
+nav[data-uzhnaq-name="large"] > [data-uzhnaq-name="Links"] > *,
+nav[data-uzhnaq-name="laptop"] > [data-uzhnaq-name="Links"] > *,
+nav[data-uzhnaq-name="tablet"] > [data-uzhnaq-name="Links"] > * {
+  flex: 0 0 auto !important;
+}
+
+nav[data-uzhnaq-name="Default"] [data-uzhnaq-name="Logo and Name"],
+nav[data-uzhnaq-name="large"] [data-uzhnaq-name="Logo and Name"],
+nav[data-uzhnaq-name="laptop"] [data-uzhnaq-name="Logo and Name"],
+nav[data-uzhnaq-name="tablet"] [data-uzhnaq-name="Logo and Name"] {
+  max-width: 100% !important;
+  overflow: visible !important;
+}
+
+@media (max-width: 1199px) {
+  nav[data-uzhnaq-name="Default"],
+  nav[data-uzhnaq-name="large"],
+  nav[data-uzhnaq-name="laptop"],
+  nav[data-uzhnaq-name="tablet"] {
+    gap: 16px !important;
+  }
+
+  nav[data-uzhnaq-name="Default"] > [data-uzhnaq-name="Links"],
+  nav[data-uzhnaq-name="large"] > [data-uzhnaq-name="Links"],
+  nav[data-uzhnaq-name="laptop"] > [data-uzhnaq-name="Links"],
+  nav[data-uzhnaq-name="tablet"] > [data-uzhnaq-name="Links"] {
+    gap: 14px !important;
+  }
+}
+
+
+
+/* =========================================================
+   FINAL HEADER WIDTH TUNING
+   ========================================================= */
+
+@media (min-width: 810px) and (max-width: 1280px) {
+  nav[data-uzhnaq-name="Default"],
+  nav[data-uzhnaq-name="large"],
+  nav[data-uzhnaq-name="laptop"],
+  nav[data-uzhnaq-name="tablet"] {
+    grid-template-columns: max-content minmax(0, 1fr) !important;
+    column-gap: 14px !important;
+  }
+
+  nav[data-uzhnaq-name="Default"] > [data-uzhnaq-name="Links"],
+  nav[data-uzhnaq-name="large"] > [data-uzhnaq-name="Links"],
+  nav[data-uzhnaq-name="laptop"] > [data-uzhnaq-name="Links"],
+  nav[data-uzhnaq-name="tablet"] > [data-uzhnaq-name="Links"] {
+    gap: 8px !important;
+    justify-content: flex-end !important;
+    min-width: 0 !important;
+  }
+
+  nav[data-uzhnaq-name="Default"] .site-nav-item-shell,
+  nav[data-uzhnaq-name="large"] .site-nav-item-shell,
+  nav[data-uzhnaq-name="laptop"] .site-nav-item-shell,
+  nav[data-uzhnaq-name="tablet"] .site-nav-item-shell {
+    padding: 0 6px !important;
+    min-height: 34px !important;
+  }
+
+  nav[data-uzhnaq-name="Default"] .site-nav-link,
+  nav[data-uzhnaq-name="Default"] .site-nav-trigger,
+  nav[data-uzhnaq-name="large"] .site-nav-link,
+  nav[data-uzhnaq-name="large"] .site-nav-trigger,
+  nav[data-uzhnaq-name="laptop"] .site-nav-link,
+  nav[data-uzhnaq-name="laptop"] .site-nav-trigger,
+  nav[data-uzhnaq-name="tablet"] .site-nav-link,
+  nav[data-uzhnaq-name="tablet"] .site-nav-trigger {
+    min-height: 34px !important;
+    gap: 5px !important;
+  }
+
+  nav[data-uzhnaq-name="Default"] .uzhnaq-text,
+  nav[data-uzhnaq-name="large"] .uzhnaq-text,
+  nav[data-uzhnaq-name="laptop"] .uzhnaq-text,
+  nav[data-uzhnaq-name="tablet"] .uzhnaq-text {
+    font-size: clamp(12px, 1.15vw, 16px) !important;
+    line-height: 1 !important;
+    white-space: nowrap !important;
+  }
+
+  nav[data-uzhnaq-name="Default"] > [data-uzhnaq-name="Links"] > :last-child,
+  nav[data-uzhnaq-name="large"] > [data-uzhnaq-name="Links"] > :last-child,
+  nav[data-uzhnaq-name="laptop"] > [data-uzhnaq-name="Links"] > :last-child,
+  nav[data-uzhnaq-name="tablet"] > [data-uzhnaq-name="Links"] > :last-child {
+    margin-right: 0 !important;
+  }
+}
+
+/* =========================================================
+   STATIC MAP IMAGE - ALL SCREEN SIZES
+   ========================================================= */
+
+.site-static-map-root {
+  width: 100% !important;
+  max-width: 1118px !important;
+  margin: 0 auto !important;
+  padding: 0 12px !important;
+  box-sizing: border-box !important;
+  overflow: visible !important;
+}
+
+.site-static-map-frame {
+  width: 100% !important;
+  display: block !important;
+  margin: 0 auto !important;
+}
+
+.site-static-map-image {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  margin: 0 auto !important;
+  object-fit: contain !important;
+}
+/* =========================================================
+   FINAL HEADER MICRO-FIX
+   ========================================================= */
+
+@media (min-width: 810px) and (max-width: 1320px) {
+  nav[data-uzhnaq-name="Default"],
+  nav[data-uzhnaq-name="large"],
+  nav[data-uzhnaq-name="laptop"],
+  nav[data-uzhnaq-name="tablet"] {
+    grid-template-columns: minmax(150px, max-content) minmax(0, 1fr) !important;
+    column-gap: 10px !important;
+  }
+
+  nav[data-uzhnaq-name="Default"] > [data-uzhnaq-name="Links"],
+  nav[data-uzhnaq-name="large"] > [data-uzhnaq-name="Links"],
+  nav[data-uzhnaq-name="laptop"] > [data-uzhnaq-name="Links"],
+  nav[data-uzhnaq-name="tablet"] > [data-uzhnaq-name="Links"] {
+    gap: 6px !important;
+    padding-right: 8px !important;
+  }
+
+  nav[data-uzhnaq-name="Default"] .site-nav-item-shell,
+  nav[data-uzhnaq-name="large"] .site-nav-item-shell,
+  nav[data-uzhnaq-name="laptop"] .site-nav-item-shell,
+  nav[data-uzhnaq-name="tablet"] .site-nav-item-shell {
+    padding-left: 4px !important;
+    padding-right: 4px !important;
+  }
+
+  nav[data-uzhnaq-name="Default"] .uzhnaq-text,
+  nav[data-uzhnaq-name="large"] .uzhnaq-text,
+  nav[data-uzhnaq-name="laptop"] .uzhnaq-text,
+  nav[data-uzhnaq-name="tablet"] .uzhnaq-text {
+    font-size: clamp(11px, 1.05vw, 15px) !important;
+  }
+
+  nav[data-uzhnaq-name="Default"] > [data-uzhnaq-name="Links"] > :last-child,
+  nav[data-uzhnaq-name="large"] > [data-uzhnaq-name="Links"] > :last-child,
+  nav[data-uzhnaq-name="laptop"] > [data-uzhnaq-name="Links"] > :last-child,
+  nav[data-uzhnaq-name="tablet"] > [data-uzhnaq-name="Links"] > :last-child {
+    padding-right: 2px !important;
+    margin-right: 0 !important;
+  }
+}
+
+@media (min-width: 810px) and (max-width: 1320px) {
+  nav[data-uzhnaq-name="Default"] > [data-uzhnaq-name="Links"],
+  nav[data-uzhnaq-name="large"] > [data-uzhnaq-name="Links"],
+  nav[data-uzhnaq-name="laptop"] > [data-uzhnaq-name="Links"],
+  nav[data-uzhnaq-name="tablet"] > [data-uzhnaq-name="Links"] {
+    gap: 4px !important;
+    padding-right: 14px !important;
+  }
+
+  nav[data-uzhnaq-name="Default"] .site-nav-item-shell,
+  nav[data-uzhnaq-name="large"] .site-nav-item-shell,
+  nav[data-uzhnaq-name="laptop"] .site-nav-item-shell,
+  nav[data-uzhnaq-name="tablet"] .site-nav-item-shell {
+    padding-left: 2px !important;
+    padding-right: 2px !important;
+  }
+
+  nav[data-uzhnaq-name="Default"] .uzhnaq-text,
+  nav[data-uzhnaq-name="large"] .uzhnaq-text,
+  nav[data-uzhnaq-name="laptop"] .uzhnaq-text,
+  nav[data-uzhnaq-name="tablet"] .uzhnaq-text {
+    font-size: clamp(10px, 0.95vw, 14px) !important;
+    white-space: nowrap !important;
   }
 }
