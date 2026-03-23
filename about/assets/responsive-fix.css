@@ -1,0 +1,144 @@
+/* Responsive stabilization patch for UZHNAQ homepage */
+
+/* 1) Stop viewport-width sections from drifting because of 100vw + negative margins */
+@media (max-width: 1199px) {
+  [data-uzhnaq-root] > :is(div, section, nav, footer):where(
+      [style*="background-color"],
+      [data-border="true"],
+      :has([data-uzhnaq-background-image-wrapper="true"])
+    ),
+  [data-uzhnaq-root] > .ssr-variant > :is(div, section, nav, footer):where(
+      [style*="background-color"],
+      [data-border="true"],
+      :has([data-uzhnaq-background-image-wrapper="true"])
+    ),
+  [data-uzhnaq-root] .uzhnaq-1ytqfhu,
+  [data-uzhnaq-root] .uzhnaq-1jf2fz0 .uzhnaq-9gavgo,
+  [data-uzhnaq-root] .site-facts-viewport-shell {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    left: auto !important;
+    right: auto !important;
+    transform: none !important;
+  }
+}
+
+/* 2) Prevent flex/grid children from overflowing and pushing siblings out of place */
+[data-uzhnaq-root] :is(
+  .uzhnaq-1gltdb,
+  .site-home-copy-clean,
+  .site-hero-cta-row,
+  .site-facts-gallery,
+  .site-facts-strip,
+  .site-footer-shell,
+  .footer-live-root,
+  .premium-dropdown,
+  [class$="-container"],
+  [data-uzhnaq-stack]
+) > * {
+  min-width: 0 !important;
+}
+
+[data-uzhnaq-root] img,
+[data-uzhnaq-root] svg,
+[data-uzhnaq-root] video,
+[data-uzhnaq-root] canvas {
+  max-width: 100%;
+  height: auto;
+}
+
+/* 3) Tame the hero artwork at tablet/mobile widths */
+@media (max-width: 1199px) {
+  [data-home-hero-visual-placeholder="true"] .site-home-hero-machine-shell,
+  [data-home-hero-visual-placeholder="true"] .site-home-hero-machine-stage {
+    transform: none !important;
+  }
+
+  [data-home-hero-visual-placeholder="true"] .site-home-hero-machine,
+  [data-home-hero-visual-placeholder="true"] .site-home-hero-machine-shell,
+  [data-home-hero-visual-placeholder="true"] .site-home-hero-machine-stage,
+  [data-home-hero-visual-placeholder="true"] .site-home-hero-machine-svg {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+  }
+}
+
+@media (max-width: 809px) {
+  [data-uzhnaq-root] .site-home-copy-clean.uzhnaq-1gltdb,
+  [data-uzhnaq-root] .site-home-copy-clean,
+  [data-uzhnaq-root] .site-facts-gallery,
+  [data-uzhnaq-root] .site-footer-shell,
+  [data-uzhnaq-root] .footer-live-root {
+    width: calc(100% - 24px) !important;
+    max-width: calc(100% - 24px) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  [data-home-hero-visual-placeholder="true"] {
+    min-height: auto !important;
+    overflow: hidden !important;
+  }
+
+  [data-home-hero-visual-placeholder="true"] .site-home-hero-machine-ambience,
+  [data-home-hero-visual-placeholder="true"] .site-home-hero-machine-sweep {
+    display: none !important;
+  }
+}
+
+/* 4) Let buttons/cards wrap instead of colliding */
+@media (max-width: 809px) {
+  [data-uzhnaq-root] .site-hero-cta-row {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  [data-uzhnaq-root] .site-hero-cta-row > *,
+  [data-uzhnaq-root] .site-hero-cta-link {
+    width: 100% !important;
+  }
+}
+
+/* 5) Stop decorative absolute elements from covering or pushing content */
+@media (max-width: 809px) {
+  [data-uzhnaq-root] .footer-orbit-one,
+  [data-uzhnaq-root] .footer-orbit-two,
+  [data-uzhnaq-root] .footer-orbit-three,
+  [data-uzhnaq-root] .footer-backdrop-gear-main,
+  [data-uzhnaq-root] .footer-backdrop-gear-mid,
+  [data-uzhnaq-root] .footer-backdrop-gear-small,
+  [data-uzhnaq-root] .site-facts-orbit,
+  [data-uzhnaq-root] .site-facts-glow,
+  [data-uzhnaq-root] .site-home-hide-decor {
+    display: none !important;
+  }
+}
+
+/* 6) Remove fixed heights that cause clipping */
+@media (max-width: 1199px) {
+  [data-uzhnaq-root] :is(
+    .site-facts-card,
+    .site-facts-gallery-shell,
+    .site-facts-viewport-shell,
+    .footer-newsletter-live,
+    .footer-contact-item-live,
+    .footer-social-item-live
+  ) {
+    min-height: 0 !important;
+    height: auto !important;
+  }
+}
+
+/* 7) Make long headings/text wrap instead of overflow */
+[data-uzhnaq-root] .uzhnaq-text,
+[data-uzhnaq-root] h1,
+[data-uzhnaq-root] h2,
+[data-uzhnaq-root] h3,
+[data-uzhnaq-root] p,
+[data-uzhnaq-root] a {
+  overflow-wrap: anywhere;
+}
