@@ -204,14 +204,7 @@ form [data-enquiry-invalid="true"] {
 }
 
 .site-nav-current::after {
-  content: "";
-  position: absolute;
-  left: 14px;
-  right: 14px;
-  bottom: 4px;
-  height: 2px;
-  border-radius: 999px;
-  background: linear-gradient(90deg, rgba(220, 246, 54, 0.18), rgba(220, 246, 54, 0.96), rgba(47, 120, 255, 0.7));
+  content: none !important;
 }
 
 .premium-dropdown {
@@ -5614,17 +5607,21 @@ nav[data-uzhnaq-name="tablet"] [data-uzhnaq-name="Logo and Name"] {
 
 .site-static-map-root {
   width: 100% !important;
-  max-width: 1118px !important;
+  max-width: 100% !important;
   margin: 0 auto !important;
   padding: 0 12px !important;
   box-sizing: border-box !important;
-  overflow: visible !important;
+  overflow: hidden !important;
+  display: flex !important;
+  justify-content: center !important;
 }
 
 .site-static-map-frame {
   width: 100% !important;
+  max-width: min(1118px, calc(100vw - 24px)) !important;
   display: block !important;
   margin: 0 auto !important;
+  overflow: hidden !important;
 }
 
 .site-static-map-image {
@@ -5635,73 +5632,131 @@ nav[data-uzhnaq-name="tablet"] [data-uzhnaq-name="Logo and Name"] {
   margin: 0 auto !important;
   object-fit: contain !important;
 }
-/* =========================================================
-   FINAL HEADER MICRO-FIX
-   ========================================================= */
 
-@media (min-width: 810px) and (max-width: 1320px) {
+@media (min-width: 810px) {
   nav[data-uzhnaq-name="Default"],
   nav[data-uzhnaq-name="large"],
   nav[data-uzhnaq-name="laptop"],
   nav[data-uzhnaq-name="tablet"] {
-    grid-template-columns: minmax(150px, max-content) minmax(0, 1fr) !important;
-    column-gap: 10px !important;
+    display: grid !important;
+    grid-template-columns: max-content minmax(0, 1fr) !important;
+    align-items: center !important;
+    column-gap: 24px !important;
+  }
+
+  nav[data-uzhnaq-name="Default"] > [data-uzhnaq-name="Name"],
+  nav[data-uzhnaq-name="large"] > [data-uzhnaq-name="Name"],
+  nav[data-uzhnaq-name="laptop"] > [data-uzhnaq-name="Name"],
+  nav[data-uzhnaq-name="tablet"] > [data-uzhnaq-name="Name"] {
+    grid-column: 1 !important;
+    justify-self: start !important;
+    margin: 0 !important;
+    z-index: 2 !important;
   }
 
   nav[data-uzhnaq-name="Default"] > [data-uzhnaq-name="Links"],
   nav[data-uzhnaq-name="large"] > [data-uzhnaq-name="Links"],
   nav[data-uzhnaq-name="laptop"] > [data-uzhnaq-name="Links"],
   nav[data-uzhnaq-name="tablet"] > [data-uzhnaq-name="Links"] {
-    gap: 6px !important;
-    padding-right: 8px !important;
+    grid-column: 2 !important;
+    justify-self: end !important;
+    display: flex !important;
+    justify-content: flex-end !important;
+    align-items: center !important;
+    flex-wrap: nowrap !important;
+    gap: 14px !important;
+    min-width: 0 !important;
+    width: 100% !important;
+    margin: 0 !important;
   }
 
   nav[data-uzhnaq-name="Default"] .site-nav-item-shell,
   nav[data-uzhnaq-name="large"] .site-nav-item-shell,
   nav[data-uzhnaq-name="laptop"] .site-nav-item-shell,
   nav[data-uzhnaq-name="tablet"] .site-nav-item-shell {
-    padding-left: 4px !important;
-    padding-right: 4px !important;
+    padding: 0 8px !important;
+    min-height: 38px !important;
   }
 
   nav[data-uzhnaq-name="Default"] .uzhnaq-text,
   nav[data-uzhnaq-name="large"] .uzhnaq-text,
   nav[data-uzhnaq-name="laptop"] .uzhnaq-text,
   nav[data-uzhnaq-name="tablet"] .uzhnaq-text {
-    font-size: clamp(11px, 1.05vw, 15px) !important;
-  }
-
-  nav[data-uzhnaq-name="Default"] > [data-uzhnaq-name="Links"] > :last-child,
-  nav[data-uzhnaq-name="large"] > [data-uzhnaq-name="Links"] > :last-child,
-  nav[data-uzhnaq-name="laptop"] > [data-uzhnaq-name="Links"] > :last-child,
-  nav[data-uzhnaq-name="tablet"] > [data-uzhnaq-name="Links"] > :last-child {
-    padding-right: 2px !important;
-    margin-right: 0 !important;
+    font-size: 16px !important;
+    line-height: 1 !important;
+    white-space: nowrap !important;
   }
 }
 
-@media (min-width: 810px) and (max-width: 1320px) {
+@media (min-width: 810px) and (max-width: 1200px) {
+  nav[data-uzhnaq-name="Default"],
+  nav[data-uzhnaq-name="large"],
+  nav[data-uzhnaq-name="laptop"],
+  nav[data-uzhnaq-name="tablet"] {
+    column-gap: 16px !important;
+  }
+
   nav[data-uzhnaq-name="Default"] > [data-uzhnaq-name="Links"],
   nav[data-uzhnaq-name="large"] > [data-uzhnaq-name="Links"],
   nav[data-uzhnaq-name="laptop"] > [data-uzhnaq-name="Links"],
   nav[data-uzhnaq-name="tablet"] > [data-uzhnaq-name="Links"] {
-    gap: 4px !important;
-    padding-right: 14px !important;
+    gap: 10px !important;
   }
 
   nav[data-uzhnaq-name="Default"] .site-nav-item-shell,
   nav[data-uzhnaq-name="large"] .site-nav-item-shell,
   nav[data-uzhnaq-name="laptop"] .site-nav-item-shell,
   nav[data-uzhnaq-name="tablet"] .site-nav-item-shell {
-    padding-left: 2px !important;
-    padding-right: 2px !important;
+    padding: 0 6px !important;
   }
 
   nav[data-uzhnaq-name="Default"] .uzhnaq-text,
   nav[data-uzhnaq-name="large"] .uzhnaq-text,
   nav[data-uzhnaq-name="laptop"] .uzhnaq-text,
   nav[data-uzhnaq-name="tablet"] .uzhnaq-text {
-    font-size: clamp(10px, 0.95vw, 14px) !important;
-    white-space: nowrap !important;
+    font-size: 15px !important;
   }
+}
+
+@media (min-width: 810px) and (max-width: 1280px) {
+  nav[data-uzhnaq-name="Default"] > [data-uzhnaq-name="Links"],
+  nav[data-uzhnaq-name="large"] > [data-uzhnaq-name="Links"],
+  nav[data-uzhnaq-name="laptop"] > [data-uzhnaq-name="Links"],
+  nav[data-uzhnaq-name="tablet"] > [data-uzhnaq-name="Links"] {
+    padding-right: 24px !important;
+  }
+}
+
+.site-nav-current {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.site-nav-current .site-nav-link,
+.site-nav-current .site-nav-trigger {
+  position: relative !important;
+}
+
+.site-nav-current .site-nav-link::after,
+.site-nav-current .site-nav-trigger::after {
+  content: "";
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: -2px;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    rgba(220, 246, 54, 0.18),
+    rgba(220, 246, 54, 0.96),
+    rgba(47, 120, 255, 0.7)
+  );
+}
+
+html,
+body,
+#main,
+[data-uzhnaq-root] {
+  overflow-x: hidden !important;
 }
