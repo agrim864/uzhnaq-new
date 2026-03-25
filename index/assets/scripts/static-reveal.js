@@ -518,23 +518,38 @@
       }
 
       function refresh() {
-        if (!isRenderable(section)) {
-          return;
-        }
+  if (!isRenderable(section)) {
+    return;
+  }
 
-        state.slideWidth = Math.max(viewport.clientWidth, 1);
-        track.style.width = state.slideWidth * items.length + "px";
-        track.style.flexDirection = "row";
+  var widthHost = viewport.parentElement || section;
+  var measuredWidth = Math.max(
+    Math.round(widthHost.getBoundingClientRect().width),
+    Math.round(section.getBoundingClientRect().width),
+    1
+  );
 
-        items.forEach(function (item) {
-          item.style.width = state.slideWidth + "px";
-          item.style.height = "100%";
-          item.style.flexBasis = state.slideWidth + "px";
-        });
+  state.slideWidth = measuredWidth;
 
-        applyTransform(false, 0);
-        updateStatus();
-      }
+  viewport.style.width = "100%";
+  viewport.style.maxWidth = "100%";
+  viewport.style.overflow = "hidden";
+
+  track.style.width = state.slideWidth * items.length + "px";
+  track.style.maxWidth = "none";
+  track.style.flexDirection = "row";
+
+  items.forEach(function (item) {
+    item.style.width = state.slideWidth + "px";
+    item.style.maxWidth = state.slideWidth + "px";
+    item.style.height = "100%";
+    item.style.flexBasis = state.slideWidth + "px";
+    item.style.flexShrink = "0";
+  });
+
+  applyTransform(false, 0);
+  updateStatus();
+}
 
       function handlePointerDown(event) {
         if (event.pointerType === "mouse" && event.button !== 0) {
@@ -629,11 +644,22 @@
       });
 
       section.__staticTechCarousel = {
-        refresh: refresh
-      };
+  refresh: refresh
+};
 
-      refresh();
-      goTo(0, false);
+if ("ResizeObserver" in window) {
+  var carouselResizeObserver = new ResizeObserver(function () {
+    window.requestAnimationFrame(refresh);
+  });
+
+  carouselResizeObserver.observe(section);
+  carouselResizeObserver.observe(viewport);
+}
+
+window.addEventListener("orientationchange", refresh);
+
+refresh();
+goTo(0, false);
     });
   }
 

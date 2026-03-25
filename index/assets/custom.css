@@ -111,6 +111,14 @@ body {
   transform-origin: center;
 }
 
+/* Make Industries We Serve + Testimonials use the same background as
+   "Transforming with Advanced Technology" */
+/* Make Industries We Serve + Testimonials use the same background treatment as
+   "Transforming with Advanced Technology" without changing layout geometry */
+/* Rebuild Industries We Serve + Testimonials background cleanly.
+   Keep the section layout exactly as-is, replace only the background. */
+
+
 .enquiry-form-status {
   grid-column: 1 / -1;
   margin-top: 14px;
@@ -5206,48 +5214,52 @@ body,
     overflow: hidden !important;
   }
 
-  [data-uzhnaq-root] .uzhnaq-1sw22r6 {
+    [data-uzhnaq-root] .uzhnaq-1sw22r6 {
+    --craft-pc-width: 1140px;
+    --craft-pc-height: 2720px;
+    --craft-scale: min(1, calc((100vw - 12px) / var(--craft-pc-width)));
+
     width: 100vw !important;
     max-width: 100vw !important;
     margin-left: calc(50% - 50vw) !important;
     margin-right: calc(50% - 50vw) !important;
+    position: relative !important;
     overflow: hidden !important;
+    min-height: calc(var(--craft-pc-height) * var(--craft-scale)) !important;
   }
 
-  [data-uzhnaq-root] .uzhnaq-1sw22r6 > .ssr-variant {
-    width: 100% !important;
-    max-width: 100% !important;
-    overflow: hidden !important;
-  }
-
-  [data-uzhnaq-root] .uzhnaq-1sw22r6 .uzhnaq-ixoxg1 {
-    width: 1200px !important;
+  /* show only the desktop SSR block for this section */
+  [data-uzhnaq-root] .uzhnaq-1sw22r6 > .ssr-variant.hidden-6dgpxl {
+    display: block !important;
+    width: var(--craft-pc-width) !important;
     max-width: none !important;
-    margin-left: 50% !important;
-    margin-right: 0 !important;
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-    box-sizing: border-box !important;
-    transform: translateX(-50%) scale(0.32) !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 50% !important;
+    margin: 0 !important;
+    overflow: visible !important;
+    transform: translateX(-50%) scale(var(--craft-scale)) !important;
     transform-origin: top center !important;
   }
 
-  [data-uzhnaq-root] .uzhnaq-1sw22r6 {
-    min-height: 1200px !important;
+  /* hide only the alternate top-level SSR block */
+  [data-uzhnaq-root] .uzhnaq-1sw22r6 > .ssr-variant:not(.hidden-6dgpxl) {
+    display: none !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+
+  [data-uzhnaq-root] .uzhnaq-1sw22r6 > .ssr-variant.hidden-6dgpxl > .uzhnaq-ixoxg1 {
+    width: var(--craft-pc-width) !important;
+    max-width: none !important;
+    flex: none !important;
+    overflow: visible !important;
   }
 
   [data-uzhnaq-root] .uzhnaq-1sw22r6 .uzhnaq-1v4sw0d {
     width: auto !important;
     margin: 0 !important;
     text-align: inherit !important;
-  }
-
-  [data-uzhnaq-root] .uzhnaq-1sw22r6 [id^="row"],
-  [data-uzhnaq-root] .uzhnaq-1sw22r6 [id^="row"] > *,
-  [data-uzhnaq-root] .uzhnaq-1sw22r6 [data-border="true"],
-  [data-uzhnaq-root] .uzhnaq-1sw22r6 :is(.uzhnaq-1alu1kh, .uzhnaq-xkw1k8, .uzhnaq-1xjfbk7, .uzhnaq-bt65k3, .uzhnaq-namlj5, .uzhnaq-1rux471, .uzhnaq-a2gwjd, .uzhnaq-p3ee4b, .uzhnaq-1hiujd8),
-  [data-uzhnaq-root] .uzhnaq-1sw22r6 :is(.uzhnaq-1aqhcpm, .uzhnaq-1q9udc6, .uzhnaq-10nsgwh, .uzhnaq-1jpfzrb, .uzhnaq-1r7o2l, .uzhnaq-n8dx7d, .uzhnaq-1793yrw, .uzhnaq-1yuyp7e, .uzhnaq-3q252r, .uzhnaq-8upiig, .uzhnaq-1rvyu9t, .uzhnaq-1ptwhce, .uzhnaq-2wh1jo, .uzhnaq-epz91i, .uzhnaq-bwwsud) {
-    position: absolute !important;
   }
 
   [data-uzhnaq-root] .uzhnaq-1oiuly,
@@ -5977,3 +5989,386 @@ body,
 [data-uzhnaq-root] {
   overflow-x: hidden !important;
 }
+
+/* Keep Industries We Serve + Testimonials text aligned consistently */
+[data-uzhnaq-root] :is(.uzhnaq-e1nr4t, .uzhnaq-12drpeq) [data-uzhnaq-component-type="RichTextContainer"] {
+  width: 100% !important;
+  text-align: center !important;
+}
+
+[data-uzhnaq-root] :is(.uzhnaq-e1nr4t, .uzhnaq-12drpeq) .uzhnaq-text,
+[data-uzhnaq-root] :is(.uzhnaq-e1nr4t, .uzhnaq-12drpeq) [data-uzhnaq-component-type="RichTextContainer"] .uzhnaq-text,
+[data-uzhnaq-root] :is(.uzhnaq-e1nr4t, .uzhnaq-12drpeq) [style*="--uzhnaq-text-alignment:left"],
+[data-uzhnaq-root] :is(.uzhnaq-e1nr4t, .uzhnaq-12drpeq) [style*="--uzhnaq-text-alignment:start"] {
+  --uzhnaq-text-alignment: center !important;
+  text-align: center !important;
+}
+
+/* Fix mixed text alignment in Industries We Serve + Testimonials */
+[data-uzhnaq-root] .uzhnaq-e1nr4t .uzhnaq-1oqvl8d .uzhnaq-text {
+  --uzhnaq-text-alignment: center !important;
+  text-align: center !important;
+  max-width: 980px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+[data-uzhnaq-root] .uzhnaq-12drpeq .uzhnaq-text[style*="--uzhnaq-text-alignment:left"] {
+  --uzhnaq-text-alignment: center !important;
+  text-align: center !important;
+}
+
+[data-uzhnaq-root] .uzhnaq-12drpeq .uzhnaq-1opp1u1-container > section {
+  justify-content: center !important;
+}
+
+[data-uzhnaq-root] .uzhnaq-12drpeq .uzhnaq-1opp1u1-container > section > ul {
+  width: auto !important;
+  max-width: none !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* Fix testimonial card text layout */
+/* Fix testimonial card text layout */
+/* Fix testimonial card text layout for all card text-box variants */
+[data-uzhnaq-root] .uzhnaq-12drpeq :is(.uzhnaq-1wz0d1q, .uzhnaq-i1j359, .uzhnaq-1q4h98f) {
+  width: calc(100% - 44px) !important;
+  max-width: calc(100% - 44px) !important;
+  left: 50% !important;
+  top: 55% !important;
+  transform: translate(-50%, -50%) !important;
+  text-align: center !important;
+}
+
+[data-uzhnaq-root] .uzhnaq-12drpeq :is(.uzhnaq-1wz0d1q, .uzhnaq-i1j359, .uzhnaq-1q4h98f) .uzhnaq-text {
+  --uzhnaq-text-alignment: center !important;
+  text-align: center !important;
+  line-height: 1.55em !important;
+  margin: 0 auto !important;
+  max-width: 100% !important;
+  white-space: normal !important;
+  overflow-wrap: anywhere !important;
+  word-break: normal !important;
+}
+
+/* Desktop header brochure button */
+[data-uzhnaq-root]
+  nav[data-uzhnaq-name]:not([data-uzhnaq-name="Phone"])
+  .site-header-brochure-shell {
+  display: inline-flex;
+  align-items: center;
+  margin-right: clamp(8px, 1vw, 14px);
+}
+
+[data-uzhnaq-root]
+  nav[data-uzhnaq-name]:not([data-uzhnaq-name="Phone"])
+  .site-header-brochure-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 40px;
+  padding: 0 16px 0 18px !important;
+  border-radius: 999px;
+  border: 1px solid rgba(221, 243, 68, 0.26);
+  background:
+    linear-gradient(145deg, rgba(8, 14, 35, 0.96), rgba(10, 29, 62, 0.92));
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.04),
+    0 14px 26px rgba(2, 6, 16, 0.28),
+    0 0 0 1px rgba(221, 243, 68, 0.08);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+[data-uzhnaq-root]
+  nav[data-uzhnaq-name]:not([data-uzhnaq-name="Phone"])
+  .site-header-brochure-link
+  .uzhnaq-text,
+[data-uzhnaq-root]
+  nav[data-uzhnaq-name]:not([data-uzhnaq-name="Phone"])
+  .site-header-brochure-link
+  span.uzhnaq-text {
+  color: #f5f8ff !important;
+}
+
+[data-uzhnaq-root]
+  nav[data-uzhnaq-name]:not([data-uzhnaq-name="Phone"])
+  .site-header-brochure-link
+  .site-hero-cta-icon {
+  width: 28px;
+  height: 28px;
+  border-color: rgba(221, 243, 68, 0.26);
+  background: rgba(8, 19, 42, 0.28);
+  color: #ddf344;
+}
+
+[data-uzhnaq-root]
+  nav[data-uzhnaq-name]:not([data-uzhnaq-name="Phone"])
+  .site-header-brochure-link:hover,
+[data-uzhnaq-root]
+  nav[data-uzhnaq-name]:not([data-uzhnaq-name="Phone"])
+  .site-header-brochure-link:focus-visible {
+  border-color: rgba(221, 243, 68, 0.42);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.05),
+    0 16px 30px rgba(2, 6, 16, 0.34),
+    0 0 0 1px rgba(221, 243, 68, 0.14);
+  outline: none;
+}
+
+@media (max-width: 809.98px) {
+  [data-uzhnaq-root]
+    nav[data-uzhnaq-name]:not([data-uzhnaq-name="Phone"])
+    .site-header-brochure-shell {
+    display: none !important;
+  }
+}
+
+/* Keep "Our Global Presence" heading + map centered on every screen size */
+[data-uzhnaq-root] .uzhnaq-15rah4b,
+[data-uzhnaq-root] .uzhnaq-1srctax,
+[data-uzhnaq-root] .uzhnaq-1oiuly,
+[data-uzhnaq-root] .site-static-map-root {
+  width: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  text-align: center !important;
+}
+
+[data-uzhnaq-root] .uzhnaq-ecjdjr,
+[data-uzhnaq-root] .uzhnaq-15rah4b [data-uzhnaq-component-type="RichTextContainer"] {
+  width: 100% !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  text-align: center !important;
+}
+
+[data-uzhnaq-root] .site-static-map-frame {
+  width: min(100%, 1120px) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  display: flex !important;
+  justify-content: center !important;
+}
+
+[data-uzhnaq-root] .site-static-map-image {
+  display: block !important;
+  width: 100% !important;
+  max-width: 1120px !important;
+  height: auto !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* Make carousel width respond to screen size */
+.uzhnaq--slideshow-controls {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+.uzhnaq--slideshow-controls + * {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow: hidden !important;
+}
+
+.uzhnaq--slideshow-controls + * ul {
+  width: 100% !important;
+  max-width: none !important;
+}
+
+.uzhnaq--slideshow-controls + * li {
+  min-width: 0 !important;
+}
+
+/* 1) Hero section small paragraph: keep text left-aligned */
+[data-uzhnaq-root] .site-home-hero-contrast-panel .uzhnaq-16u0u6i .uzhnaq-text {
+  --uzhnaq-text-alignment: left !important;
+  text-align: left !important;
+  margin: 0 !important;
+}
+
+/* 2) Why Choose Us: align only the text, not the wrappers */
+[data-uzhnaq-root] .uzhnaq-160eo7j :is(
+  .uzhnaq-qg0a44,
+  .uzhnaq-17i5yzh,
+  .uzhnaq-ems4cj,
+  .uzhnaq-1cm37iq,
+  .uzhnaq-1eyimaf,
+  .uzhnaq-qg3v3r,
+  .uzhnaq-dyt46y,
+  .uzhnaq-13fxpw5,
+  .uzhnaq-5yei0g,
+  .uzhnaq-jao0go
+) .uzhnaq-text {
+  --uzhnaq-text-alignment: center !important;
+  text-align: center !important;
+  margin: 0 !important;
+}
+
+[data-uzhnaq-root] .uzhnaq-160eo7j :is(
+  .uzhnaq-qg0a44,
+  .uzhnaq-ems4cj,
+  .uzhnaq-1eyimaf,
+  .uzhnaq-dyt46y,
+  .uzhnaq-5yei0g
+) .uzhnaq-text {
+  line-height: 1.15 !important;
+}
+
+[data-uzhnaq-root] .uzhnaq-160eo7j :is(
+  .uzhnaq-17i5yzh,
+  .uzhnaq-1cm37iq,
+  .uzhnaq-qg3v3r,
+  .uzhnaq-13fxpw5,
+  .uzhnaq-jao0go
+) .uzhnaq-text {
+  line-height: 1.35 !important;
+}
+
+/* 3) "Have a look at how we craft each and every Product":
+   align only the text inside each text box */
+[data-uzhnaq-root] .uzhnaq-1sw22r6 [data-uzhnaq-component-type="RichTextContainer"] .uzhnaq-text {
+  --uzhnaq-text-alignment: center !important;
+  text-align: center !important;
+  margin: 0 !important;
+}
+
+/* 4) Advanced Technology carousel:
+   headings and body copy should be left-aligned, not justified/centered */
+[data-uzhnaq-root] .uzhnaq-1jf2fz0 [data-border="true"] [data-uzhnaq-component-type="RichTextContainer"] .uzhnaq-text {
+  --uzhnaq-text-alignment: left !important;
+  text-align: left !important;
+  margin: 0 !important;
+}
+
+[data-uzhnaq-root] .uzhnaq-1jf2fz0 [data-border="true"] h3.uzhnaq-text {
+  line-height: 1.05 !important;
+}
+
+[data-uzhnaq-root] .uzhnaq-1jf2fz0 [data-border="true"] p.uzhnaq-text {
+  line-height: 1.5 !important;
+}
+
+/* HERO:
+   fix only the small paragraph text */
+[data-uzhnaq-root] .uzhnaq-1gltdb .uzhnaq-16u0u6i,
+[data-uzhnaq-root] .uzhnaq-1gltdb .uzhnaq-16u0u6i .uzhnaq-text {
+  --uzhnaq-text-alignment: left !important;
+  text-align: left !important;
+  margin: 0 !important;
+  white-space: normal !important;
+  overflow-wrap: normal !important;
+  word-break: normal !important;
+}
+
+
+/* WHY CHOOSE US:
+   fix only the text containers inside the cards and right-side copy */
+[data-uzhnaq-root] .uzhnaq-160eo7j :is(
+  .uzhnaq-qg0a44,
+  .uzhnaq-17i5yzh,
+  .uzhnaq-ems4cj,
+  .uzhnaq-1cm37iq,
+  .uzhnaq-1eyimaf,
+  .uzhnaq-qg3v3r,
+  .uzhnaq-dyt46y,
+  .uzhnaq-13fxpw5,
+  .uzhnaq-5yei0g,
+  .uzhnaq-jao0go
+),
+[data-uzhnaq-root] .uzhnaq-160eo7j :is(
+  .uzhnaq-qg0a44,
+  .uzhnaq-17i5yzh,
+  .uzhnaq-ems4cj,
+  .uzhnaq-1cm37iq,
+  .uzhnaq-1eyimaf,
+  .uzhnaq-qg3v3r,
+  .uzhnaq-dyt46y,
+  .uzhnaq-13fxpw5,
+  .uzhnaq-5yei0g,
+  .uzhnaq-jao0go
+) .uzhnaq-text {
+  --uzhnaq-text-alignment: center !important;
+  text-align: center !important;
+  margin: 0 !important;
+  white-space: normal !important;
+  overflow-wrap: normal !important;
+  word-break: normal !important;
+}
+
+[data-uzhnaq-root] .uzhnaq-160eo7j :is(
+  .uzhnaq-qg0a44,
+  .uzhnaq-ems4cj,
+  .uzhnaq-1eyimaf,
+  .uzhnaq-dyt46y
+) .uzhnaq-text {
+  line-height: 1.05 !important;
+}
+
+[data-uzhnaq-root] .uzhnaq-160eo7j :is(
+  .uzhnaq-17i5yzh,
+  .uzhnaq-1cm37iq,
+  .uzhnaq-qg3v3r,
+  .uzhnaq-13fxpw5,
+  .uzhnaq-jao0go
+) .uzhnaq-text {
+  line-height: 1.28 !important;
+}
+
+[data-uzhnaq-root] .uzhnaq-160eo7j :is(
+  .uzhnaq-17i5yzh,
+  .uzhnaq-1cm37iq,
+  .uzhnaq-qg3v3r,
+  .uzhnaq-13fxpw5
+) .uzhnaq-text:first-child {
+  margin-top: 6px !important;
+}
+
+
+/* HAVE A LOOK AT HOW WE CRAFT EACH AND EVERY PRODUCT:
+   fix only the text boxes inside the row groups */
+[data-uzhnaq-root] .uzhnaq-1sw22r6 [id^="row"] [data-uzhnaq-component-type="RichTextContainer"],
+[data-uzhnaq-root] .uzhnaq-1sw22r6 [id^="row"] [data-uzhnaq-component-type="RichTextContainer"] .uzhnaq-text {
+  --uzhnaq-text-alignment: center !important;
+  text-align: center !important;
+  margin: 0 !important;
+  white-space: normal !important;
+  overflow-wrap: normal !important;
+  word-break: normal !important;
+}
+
+[data-uzhnaq-root] .uzhnaq-1sw22r6 [id^="row"] [data-uzhnaq-component-type="RichTextContainer"] .uzhnaq-text:first-child {
+  line-height: 1.2 !important;
+}
+
+[data-uzhnaq-root] .uzhnaq-1sw22r6 [id^="row"] [data-uzhnaq-component-type="RichTextContainer"] .uzhnaq-text:not(:first-child) {
+  line-height: 1.45 !important;
+}
+
+
+/* ADVANCED TECHNOLOGY CAROUSEL:
+   fix only the heading/body text inside each slide */
+[data-uzhnaq-root] .uzhnaq-1jf2fz0 [data-border="true"] [data-uzhnaq-component-type="RichTextContainer"],
+[data-uzhnaq-root] .uzhnaq-1jf2fz0 [data-border="true"] [data-uzhnaq-component-type="RichTextContainer"] .uzhnaq-text {
+  --uzhnaq-text-alignment: left !important;
+  text-align: left !important;
+  margin: 0 !important;
+  white-space: normal !important;
+  overflow-wrap: normal !important;
+  word-break: normal !important;
+}
+
+[data-uzhnaq-root] .uzhnaq-1jf2fz0 [data-border="true"] h3.uzhnaq-text {
+  line-height: 1.02 !important;
+}
+
+[data-uzhnaq-root] .uzhnaq-1jf2fz0 [data-border="true"] p.uzhnaq-text {
+  line-height: 1.5 !important;
+}
+

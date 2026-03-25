@@ -219,22 +219,22 @@ document.addEventListener("DOMContentLoaded", () => {
         {
           title: "Our Mission",
           subtitle: "What drives the company",
-          href: "./about.html#mission",
+          href: "/about/about.html#mission",
         },
         {
           title: "Our Vision",
           subtitle: "Where we are heading",
-          href: "./about.html#vision",
+          href: "/about/about.html#vision",
         },
         {
           title: "Our Promise",
           subtitle: "Quality and delivery standards",
-          href: "./about.html#promise",
+          href: "/about/about.html#promise",
         },
         {
           title: "Leadership Team",
           subtitle: "Meet the people behind UZHNAQ",
-          href: "./about.html#team",
+          href: "/about/about.html#team",
         },
       ],
     },
@@ -245,22 +245,22 @@ document.addEventListener("DOMContentLoaded", () => {
         {
           title: "Main Drive",
           subtitle: "Heavy-duty gear systems",
-          href: "./products.html#maindrive",
+          href: "/products/products.html#maindrive",
         },
         {
           title: "Differential Gear",
           subtitle: "Balanced torque transfer",
-          href: "./products.html#differentialgear",
+          href: "/products/products.html#differentialgear",
         },
         {
           title: "Planet Gear",
           subtitle: "Compact power distribution",
-          href: "./products.html#planetgear",
+          href: "/products/products.html#planetgear",
         },
         {
           title: "Synchro Assembly",
           subtitle: "Smooth shifting components",
-          href: "./products.html#synchroassembly",
+          href: "/products/products.html#synchroassembly",
         },
       ],
     },
@@ -559,6 +559,7 @@ document.addEventListener("DOMContentLoaded", () => {
   syncHomepageHeroMachine();
   initializeFooterEnhancements();
   initializeHomepageHeroBrochureCtas();
+  initializeHeaderBrochureCta();
   initializeAboutHeroShowcase();
   if (shouldMountHomepageInjectedSections) {
     initializeHomepageFactsGallery();
@@ -1180,9 +1181,186 @@ async function initGearboxThree() {
   const loader = new GLTFLoader();
   const clock = new THREE.Clock();
 
-
   let mixer = null;
   let modelRoot = null;
+  const sparkEmitters = [];
+
+  const sparkHot = new THREE.Color("#fff4c7");
+  const sparkWarm = new THREE.Color("#ffb347");
+  const sparkEmber = new THREE.Color("#ff5b00");
+  const tempSparkColor = new THREE.Color();
+
+  const sparkConfig = {
+    countPerEmitter: 65,
+    size: 0.075,
+    gravity: 3.9,
+    lifeMin: 0.16,
+    lifeMax: 0.42,
+    spread: { x: 0.04, y: 0.025, z: 0.035 },
+    emitters: [
+      {
+        offset: { x: -0.28, y: -0.05, z: 0.5 },
+        velocityX: { min: -1.55, max: -0.7 },
+        velocityY: { min: 0.2, max: 1.0 },
+        velocityZ: { min: -0.35, max: 0.35 },
+        flickerPhase: 0,
+      },
+      {
+        offset: { x: 0.28, y: -0.05, z: 0.5 },
+        velocityX: { min: 0.7, max: 1.55 },
+        velocityY: { min: 0.2, max: 1.0 },
+        velocityZ: { min: -0.35, max: 0.35 },
+        flickerPhase: Math.PI,
+      },
+    ],
+  };
+
+  function rand(min, max) {
+    return min + Math.random() * (max - min);
+  }
+
+  function applySparkColor(colorsArray, index, intensity) {
+    const i3 = index * 3;
+
+    if (intensity > 0.58) {
+      tempSparkColor.lerpColors(
+        sparkWarm,
+        sparkHot,
+        (intensity - 0.58) / 0.42
+      );
+    } else {
+      tempSparkColor.lerpColors(sparkEmber, sparkWarm, intensity / 0.58);
+    }
+
+    colorsArray[i3] = tempSparkColor.r * intensity;
+    colorsArray[i3 + 1] = tempSparkColor.g * intensity;
+    colorsArray[i3 + 2] = tempSparkColor.b * intensity;
+  }
+
+  function resetSpark(emitter, index, startVisible = true) {
+    const i3 = index * 3;
+
+    emitter.positions[i3] = rand(-sparkConfig.spread.x, sparkConfig.spread.x);
+    emitter.positions[i3 + 1] = rand(-sparkConfig.spread.y, sparkConfig.spread.y);
+    emitter.positions[i3 + 2] = rand(-sparkConfig.spread.z, sparkConfig.spread.z);
+
+    emitter.velocities[i3] = rand(
+      emitter.config.velocityX.min,
+      emitter.config.velocityX.max
+    );
+    emitter.velocities[i3 + 1] = rand(
+      emitter.config.velocityY.min,
+      emitter.config.velocityY.max
+    );
+    emitter.velocities[i3 + 2] = rand(
+      emitter.config.velocityZ.min,
+      emitter.config.velocityZ.max
+    );
+
+    emitter.maxLife[index] = rand(sparkConfig.lifeMin, sparkConfig.lifeMax);
+    emitter.life[index] = startVisible
+      ? emitter.maxLife[index] * rand(0.25, 1)
+      : 0;
+
+    applySparkColor(
+      emitter.colors,
+      index,
+      startVisible ? emitter.life[index] / emitter.maxLife[index] : 0
+    );
+  }
+
+  function createSparkEmitter(config) {
+    const group = new THREE.Group();
+    group.position.set(config.offset.x, config.offset.y, config.offset.z);
+
+    const positions = new Float32Array(sparkConfig.countPerEmitter * 3);
+    const colors = new Float32Array(sparkConfig.countPerEmitter * 3);
+    const velocities = new Float32Array(sparkConfig.countPerEmitter * 3);
+    const life = new Float32Array(sparkConfig.countPerEmitter);
+    const maxLife = new Float32Array(sparkConfig.countPerEmitter);
+
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+    geometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
+
+    const material = new THREE.PointsMaterial({
+      size: sparkConfig.size,
+      transparent: true,
+      opacity: 0.96,
+      depthWrite: false,
+      vertexColors: true,
+      blending: THREE.AdditiveBlending,
+    });
+
+    const points = new THREE.Points(geometry, material);
+    points.frustumCulled = false;
+    group.add(points);
+
+    const light = new THREE.PointLight(0xff9a1f, 0.7, 2.2, 2);
+    group.add(light);
+
+    const emitter = {
+      config,
+      group,
+      geometry,
+      points,
+      light,
+      positions,
+      colors,
+      velocities,
+      life,
+      maxLife,
+    };
+
+    for (let i = 0; i < sparkConfig.countPerEmitter; i += 1) {
+      resetSpark(emitter, i, true);
+    }
+
+    return emitter;
+  }
+
+  function buildSparks() {
+    sparkConfig.emitters.forEach((emitterConfig) => {
+      const emitter = createSparkEmitter(emitterConfig);
+      sparkEmitters.push(emitter);
+      modelRoot.add(emitter.group);
+    });
+  }
+
+  function updateSparks(delta, elapsed) {
+    if (!sparkEmitters.length) return;
+
+    sparkEmitters.forEach((emitter) => {
+      let glow = 0;
+
+      for (let i = 0; i < sparkConfig.countPerEmitter; i += 1) {
+        const i3 = i * 3;
+
+        emitter.life[i] -= delta;
+
+        if (emitter.life[i] <= 0) {
+          resetSpark(emitter, i, Math.random() > 0.15);
+        }
+
+        emitter.velocities[i3 + 1] -= sparkConfig.gravity * delta;
+
+        emitter.positions[i3] += emitter.velocities[i3] * delta;
+        emitter.positions[i3 + 1] += emitter.velocities[i3 + 1] * delta;
+        emitter.positions[i3 + 2] += emitter.velocities[i3 + 2] * delta;
+
+        const intensity = Math.max(0, emitter.life[i] / emitter.maxLife[i]);
+        glow += intensity;
+        applySparkColor(emitter.colors, i, intensity);
+      }
+
+      emitter.group.rotation.z =
+        Math.sin(elapsed * 7.2 + emitter.config.flickerPhase) * 0.045;
+
+      emitter.geometry.attributes.position.needsUpdate = true;
+      emitter.geometry.attributes.color.needsUpdate = true;
+      emitter.light.intensity = 0.35 + Math.min(1.25, glow / 22);
+    });
+  }
 
   const onGearboxLoaded = (gltf) => {
     console.log("GLB loaded successfully", gltf);
@@ -1195,7 +1373,6 @@ async function initGearboxThree() {
 
     modelRoot.position.x += 0.64;
     modelRoot.position.y -= 0.22;
-
     modelRoot.scale.setScalar(1.22);
 
     const size = box.getSize(new THREE.Vector3());
@@ -1227,6 +1404,8 @@ async function initGearboxThree() {
     } else {
       console.log("No animations found in GLB");
     }
+
+    buildSparks();
   };
 
   const gearboxCandidates = Array.from(
@@ -1257,7 +1436,6 @@ async function initGearboxThree() {
   })(0);
 
   function resize() {
-    if (!wrap) return;
     const width = wrap.clientWidth || 1;
     const height = wrap.clientHeight || 1;
 
@@ -1274,7 +1452,10 @@ async function initGearboxThree() {
     requestAnimationFrame(animate);
 
     const delta = clock.getDelta();
+    const elapsed = clock.getElapsedTime();
+
     if (mixer) mixer.update(delta);
+    updateSparks(delta, elapsed);
 
     controls.update();
     renderer.render(scene, camera);
@@ -2541,6 +2722,70 @@ async function initGearboxThree() {
         watchContainer.insertAdjacentElement("afterend", socialsContainer);
       });
   }
+
+
+  function initializeHeaderBrochureCta() {
+  if (!isHomepageLike) {
+    return;
+  }
+
+  const sourceAnchor = document.querySelector(".site-hero-brochure-link--view");
+  if (!(sourceAnchor instanceof HTMLAnchorElement)) {
+    return;
+  }
+
+  document
+    .querySelectorAll(
+      'nav[data-uzhnaq-name]:not([data-uzhnaq-name="Phone"]) [data-uzhnaq-name="Links"]',
+    )
+    .forEach((linksRoot) => {
+      if (!(linksRoot instanceof HTMLElement)) {
+        return;
+      }
+
+      const homeLink = Array.from(
+        linksRoot.querySelectorAll("a.uzhnaq-text"),
+      ).find((link) => extractText(link).trim().toLowerCase() === "home");
+
+      if (!(homeLink instanceof HTMLAnchorElement)) {
+        return;
+      }
+
+      const homeShell =
+        homeLink.closest(".site-nav-item-shell") ||
+        homeLink.closest('[data-uzhnaq-name="Inline Link"]') ||
+        homeLink;
+
+      if (!(homeShell instanceof HTMLElement)) {
+        return;
+      }
+
+      let shell = linksRoot.querySelector(".site-header-brochure-shell");
+      if (!(shell instanceof HTMLElement)) {
+        shell = document.createElement("div");
+        shell.className = "site-nav-item-shell site-header-brochure-shell";
+
+        const brochureLink = createHomepageBrochureButton(
+          sourceAnchor,
+          "View Brochure",
+          siteResourceConfig.brochure.viewUrl,
+          "site-header-brochure-link",
+          "brochure",
+          true,
+        );
+
+        brochureLink.classList.remove("site-hero-brochure-link--view");
+        brochureLink.classList.add("site-header-brochure-link");
+        brochureLink.dataset.siteHeaderBrochure = "true";
+
+        shell.appendChild(brochureLink);
+      }
+
+      if (shell.nextElementSibling !== homeShell) {
+        linksRoot.insertBefore(shell, homeShell);
+      }
+    });
+}
 
   function isRenderable(element) {
     if (
@@ -3921,7 +4166,7 @@ async function initGearboxThree() {
 
 document.addEventListener("DOMContentLoaded", () => {
   const MOBILE_BREAKPOINT = 809.98;
-  const inStandaloneIndexFolder = /\/index\//.test(window.location.pathname.replace(/\\/g, "/"));
+  const inStandaloneIndexFolder = /\/index\//.test(normalizedPath);
   const pagePrefix = inStandaloneIndexFolder ? "../" : "./";
 
   function isMobileViewport() {
@@ -3942,7 +4187,7 @@ document.addEventListener("DOMContentLoaded", () => {
       phoneNav.appendChild(links);
     }
 
-    links.innerHTML = [
+            links.innerHTML = [
       `<a class="site-mobile-header-link" href="${pagePrefix}index.html">Home</a>`,
       `<a class="site-mobile-header-link" href="${pagePrefix}about.html">About</a>`,
       `<a class="site-mobile-header-link" href="${pagePrefix}products.html">Products</a>`,
@@ -4080,46 +4325,46 @@ document.addEventListener("DOMContentLoaded", () => {
       if (root.dataset.mobileCarouselBound === 'true') return;
       root.dataset.mobileCarouselBound = 'true';
 
-      let index = 0;
+            let index = 0;
+      let resizeFrame = 0;
 
       function measure() {
-        const width = Math.max(viewport.clientWidth, 1);
+        const width = Math.max(root.clientWidth, viewport.clientWidth, 1);
+
+        root.style.width = '100%';
+        root.style.maxWidth = '100%';
+
+        viewport.style.width = '100%';
+        viewport.style.maxWidth = '100%';
+        viewport.style.overflow = 'hidden';
+
         track.style.display = 'flex';
         track.style.flexDirection = 'row';
         track.style.width = `${width * items.length}px`;
+        track.style.maxWidth = 'none';
         track.style.transition = 'transform .45s cubic-bezier(.22,1,.36,1)';
+
         items.forEach((item) => {
           item.style.width = `${width}px`;
+          item.style.maxWidth = `${width}px`;
           item.style.flex = `0 0 ${width}px`;
           item.style.display = 'block';
         });
+
         return width;
       }
 
-     function replaceGlobalMapWithStaticImage() {
-  const mapRoot = document.querySelector(".uzhnaq-1oiuly");
-  if (!(mapRoot instanceof HTMLElement)) return;
-
-  mapRoot.classList.add("site-static-map-root");
-  mapRoot.innerHTML = `
-    <div class="site-static-map-frame">
-      <img
-        class="site-static-map-image"
-        src="./assets/map.png"
-        alt="Our Global Presence map"
-      />
-    </div>
-  `;
-}
-
       function render() {
+        index = Math.max(0, Math.min(index, items.length - 1));
         const width = measure();
         track.style.transform = `translate3d(${-index * width}px,0,0)`;
+
         dots.forEach((dot, dotIndex) => {
           if (!(dot instanceof HTMLButtonElement)) return;
           dot.hidden = dotIndex >= items.length;
           dot.style.pointerEvents = dotIndex < items.length ? 'auto' : 'none';
           dot.setAttribute('aria-current', dotIndex === index ? 'true' : 'false');
+
           const inner = dot.firstElementChild;
           if (inner instanceof HTMLElement) {
             inner.style.opacity = dotIndex === index ? '1' : '0.45';
@@ -4128,18 +4373,29 @@ document.addEventListener("DOMContentLoaded", () => {
         });
       }
 
+      function scheduleRender() {
+        if (resizeFrame) {
+          cancelAnimationFrame(resizeFrame);
+        }
+
+        resizeFrame = requestAnimationFrame(() => {
+          resizeFrame = 0;
+          render();
+        });
+      }
+
       prev.addEventListener('click', (event) => {
         event.preventDefault();
         event.stopPropagation();
         index = (index - 1 + items.length) % items.length;
-        render();
+        scheduleRender();
       });
 
       next.addEventListener('click', (event) => {
         event.preventDefault();
         event.stopPropagation();
         index = (index + 1) % items.length;
-        render();
+        scheduleRender();
       });
 
       dots.forEach((dot, dotIndex) => {
@@ -4149,13 +4405,24 @@ document.addEventListener("DOMContentLoaded", () => {
           event.stopPropagation();
           if (dotIndex < items.length) {
             index = dotIndex;
-            render();
+            scheduleRender();
           }
         });
       });
 
-      window.addEventListener('resize', render);
-      render();
+      if ('ResizeObserver' in window) {
+        const observer = new ResizeObserver(() => {
+          scheduleRender();
+        });
+
+        observer.observe(root);
+        observer.observe(viewport);
+      }
+
+      window.addEventListener('resize', scheduleRender);
+      window.addEventListener('orientationchange', scheduleRender);
+
+      scheduleRender();
     });
   }
 
@@ -4289,3 +4556,32 @@ window.addEventListener("load", () => {
     cleanupMobileNoise();
   }
 });
+
+(function syncSectionBackgrounds() {
+  const NEW_BG = "./assets/images/footer-bg.svg";
+  const SECTION_SELECTORS = [".uzhnaq-e1nr4t", ".uzhnaq-12drpeq"];
+
+  function swapSectionBackground(section) {
+    const bgImg = section.querySelector(':scope > [data-uzhnaq-background-image-wrapper="true"] img');
+    if (!bgImg) return;
+
+    bgImg.src = NEW_BG;
+    bgImg.srcset = `${NEW_BG} 1440w`;
+    bgImg.removeAttribute("sizes");
+    bgImg.style.objectFit = "cover";
+    bgImg.style.objectPosition = "27.9% 46%";
+    bgImg.style.opacity = "1";
+    bgImg.style.transform = "none";
+    bgImg.style.filter = "none";
+  }
+
+  function apply() {
+    document.querySelectorAll(SECTION_SELECTORS.join(",")).forEach(swapSectionBackground);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", apply);
+  } else {
+    apply();
+  }
+})();
