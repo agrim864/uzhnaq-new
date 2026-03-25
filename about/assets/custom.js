@@ -214,6 +214,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const dropdownGroups = {
     "About Us": {
       triggerId: "undefined-1njxbrf",
+      pageHref: "./about.html",
       lead: "Quick links to the story, direction, and people behind UZHNAQ.",
       items: [
         {
@@ -240,33 +241,34 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     Products: {
       triggerId: "undefined-14p26ei",
+      pageHref: "../products/products.html",
       lead: "Jump directly to core drivetrain and transmission components.",
       items: [
         {
           title: "Main Drive",
           subtitle: "Heavy-duty gear systems",
-          href: "../products.html#maindrive",
+          href: "../products/products.html#maindrive",
         },
         {
           title: "Differential Gear",
           subtitle: "Balanced torque transfer",
-          href: "../products.html#differentialgear",
+          href: "../products/products.html#differentialgear",
         },
         {
           title: "Planet Gear",
           subtitle: "Compact power distribution",
-          href: "../products.html#planetgear",
+          href: "../products/products.html#planetgear",
         },
         {
           title: "Synchro Assembly",
           subtitle: "Smooth shifting components",
-          href: "../products.html#synchroassembly",
+          href: "../products/products.html#synchroassembly",
         },
       ],
     },
   };
   let footerAnchorSyncRegistered = false;
-  const responsiveNavBreakpoint = window.matchMedia("(max-width: 1199px)");
+  const responsiveNavBreakpoint = window.matchMedia("(max-width: 809.98px)");
   let responsiveFoundationRefreshQueued = false;
   let responsiveFoundationListenersRegistered = false;
   const responsiveDropdownStates = [];
@@ -554,6 +556,7 @@ document.addEventListener("DOMContentLoaded", () => {
   decorateHeaderNavigation();
   highlightActiveLinks();
   initializeDropdowns();
+  initializeHeaderBrochureCta();
   initializeEnquiryForms();
   syncHomepageHeroContentPolish();
   syncHomepageHeroMachine();
@@ -2227,6 +2230,19 @@ document.addEventListener("DOMContentLoaded", () => {
     return clone;
   }
 
+  function createHeaderBrochureButton(label, href) {
+    const anchor = document.createElement("a");
+    anchor.href = href;
+    anchor.target = "_blank";
+    anchor.rel = "noopener";
+    anchor.className = "site-header-brochure-link";
+    anchor.innerHTML = `
+      <span class="site-hero-cta-icon" aria-hidden="true">${inlineFooterIcons.brochure}</span>
+      <span class="uzhnaq-text">${escapeHtml(label)}</span>
+    `;
+    return anchor;
+  }
+
   function scrollToVisibleFooter(event) {
     syncVisibleFooterAnchor();
     const targetFooter = document.getElementById("site-footer-shell");
@@ -2323,6 +2339,34 @@ document.addEventListener("DOMContentLoaded", () => {
         socialsContainer.classList.add("site-hero-socials-slot");
         socialsContainer.appendChild(socialsAnchor);
         watchContainer.insertAdjacentElement("afterend", socialsContainer);
+      });
+  }
+
+  function initializeHeaderBrochureCta() {
+    document
+      .querySelectorAll(
+        'nav[data-uzhnaq-name]:not([data-uzhnaq-name="Phone"]) [data-uzhnaq-name="Links"]',
+      )
+      .forEach((linksRoot) => {
+        if (!(linksRoot instanceof HTMLElement)) {
+          return;
+        }
+
+        let shell = linksRoot.querySelector(".site-header-brochure-shell");
+        if (!(shell instanceof HTMLElement)) {
+          shell = document.createElement("div");
+          shell.className = "site-nav-item-shell site-header-brochure-shell";
+          shell.appendChild(
+            createHeaderBrochureButton(
+              "View Brochure",
+              siteResourceConfig.brochure.viewUrl,
+            ),
+          );
+        }
+
+        if (!linksRoot.contains(shell)) {
+          linksRoot.prepend(shell);
+        }
       });
   }
 
@@ -2805,7 +2849,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function isCompactNavigationMode() {
-    return responsiveNavBreakpoint.matches || window.innerWidth < 1200;
+    return responsiveNavBreakpoint.matches || window.innerWidth < 809.98;
   }
 
   function updateResponsiveFoundationMode() {
@@ -3181,6 +3225,9 @@ document.addEventListener("DOMContentLoaded", () => {
       isOpen: false,
     };
 
+    const primaryHref =
+      config.pageHref || (config.items[0]?.href || "").replace(/#.*$/, "");
+
     responsiveDropdownStates.push(state);
     trigger.dataset.dropdownReady = "true";
     trigger.classList.add("has-premium-dropdown");
@@ -3220,10 +3267,32 @@ document.addEventListener("DOMContentLoaded", () => {
 
       closeResponsiveDropdown(state);
     });
+    function navigateToPrimaryPage(event) {
+      if (!primaryHref) {
+        return;
+      }
+
+      event.preventDefault();
+      event.stopPropagation();
+
+      if (typeof event.stopImmediatePropagation === "function") {
+        event.stopImmediatePropagation();
+      }
+
+      closeResponsiveDropdown(state);
+      window.location.assign(primaryHref);
+    }
+
     trigger.addEventListener("keydown", (event) => {
       if (event.key === "Enter" || event.key === " ") {
+        navigateToPrimaryPage(event);
+        return;
+      }
+
+      if (event.key === "ArrowDown") {
         event.preventDefault();
-        toggleResponsiveDropdown(state);
+        openResponsiveDropdown(state);
+        return;
       }
 
       if (event.key === "Escape") {
@@ -3231,6 +3300,11 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
     trigger.addEventListener("click", (event) => {
+      if (isCompactNavigationMode()) {
+        navigateToPrimaryPage(event);
+        return;
+      }
+
       event.preventDefault();
       toggleResponsiveDropdown(state);
     });

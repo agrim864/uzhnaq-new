@@ -201,17 +201,27 @@ form [data-enquiry-invalid="true"] {
   background: transparent;
   box-shadow: none;
   border-radius: 999px;
+  text-decoration: none !important;
+  border-bottom: none !important;
 }
 
 .site-nav-current::after {
-  content: "";
-  position: absolute;
-  left: 14px;
-  right: 14px;
-  bottom: 4px;
-  height: 2px;
-  border-radius: 999px;
-  background: linear-gradient(90deg, rgba(220, 246, 54, 0.18), rgba(220, 246, 54, 0.96), rgba(47, 120, 255, 0.7));
+  content: none !important;
+}
+
+.site-nav-current a,
+.site-nav-current .uzhnaq-text {
+  text-decoration: none !important;
+}
+
+[data-uzhnaq-page-link-current="true"],
+[data-uzhnaq-page-link-current="true"] .uzhnaq-text {
+  text-decoration: none !important;
+  border-bottom: none !important;
+}
+
+[data-uzhnaq-root] nav[data-uzhnaq-name]:not([data-uzhnaq-name="Phone"]) {
+  height: auto !important;
 }
 
 .premium-dropdown {
@@ -280,6 +290,79 @@ form [data-enquiry-invalid="true"] {
 
 .dropdown-header {
   padding: 4px 4px 12px;
+}
+
+/* Desktop header brochure button */
+[data-uzhnaq-root]
+  nav[data-uzhnaq-name]:not([data-uzhnaq-name="Phone"])
+  .site-header-brochure-shell {
+  display: inline-flex;
+  align-items: center;
+  margin-right: clamp(8px, 1vw, 14px);
+}
+
+[data-uzhnaq-root]
+  nav[data-uzhnaq-name]:not([data-uzhnaq-name="Phone"])
+  .site-header-brochure-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 40px;
+  padding: 0 16px 0 18px !important;
+  border-radius: 999px;
+  border: 1px solid rgba(221, 243, 68, 0.26);
+  background:
+    linear-gradient(145deg, rgba(8, 14, 35, 0.96), rgba(10, 29, 62, 0.92));
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.04),
+    0 14px 26px rgba(2, 6, 16, 0.28),
+    0 0 0 1px rgba(221, 243, 68, 0.08);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+[data-uzhnaq-root]
+  nav[data-uzhnaq-name]:not([data-uzhnaq-name="Phone"])
+  .site-header-brochure-link
+  .uzhnaq-text,
+[data-uzhnaq-root]
+  nav[data-uzhnaq-name]:not([data-uzhnaq-name="Phone"])
+  .site-header-brochure-link
+  span.uzhnaq-text {
+  color: #f5f8ff !important;
+}
+
+[data-uzhnaq-root]
+  nav[data-uzhnaq-name]:not([data-uzhnaq-name="Phone"])
+  .site-header-brochure-link
+  .site-hero-cta-icon {
+  width: 28px;
+  height: 28px;
+  border-color: rgba(221, 243, 68, 0.26);
+  background: rgba(8, 19, 42, 0.28);
+  color: #ddf344;
+}
+
+[data-uzhnaq-root]
+  nav[data-uzhnaq-name]:not([data-uzhnaq-name="Phone"])
+  .site-header-brochure-link:hover,
+[data-uzhnaq-root]
+  nav[data-uzhnaq-name]:not([data-uzhnaq-name="Phone"])
+  .site-header-brochure-link:focus-visible {
+  border-color: rgba(221, 243, 68, 0.42);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.05),
+    0 16px 30px rgba(2, 6, 16, 0.34),
+    0 0 0 1px rgba(221, 243, 68, 0.14);
+  outline: none;
+}
+
+@media (max-width: 809.98px) {
+  [data-uzhnaq-root]
+    nav[data-uzhnaq-name]:not([data-uzhnaq-name="Phone"])
+    .site-header-brochure-shell {
+    display: none !important;
+  }
 }
 
 .dropdown-eyebrow {

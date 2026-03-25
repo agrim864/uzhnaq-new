@@ -264,7 +264,7 @@
   }
 
   function initMapPins() {
-    document.querySelectorAll('img[src*="50pPxGlN45r3Ut7lZNgyiMG5g"]').forEach(function (image) {
+        document.querySelectorAll('img[src*="50pPxGlN45r3Ut7lZNgyiMG5g"], img.site-static-map-image[data-site-map-source="true"]').forEach(function (image) {
       var mapRoot = image.closest("div");
 
       while (mapRoot) {

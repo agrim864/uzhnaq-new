@@ -5830,37 +5830,7 @@ nav[data-uzhnaq-name="tablet"] [data-uzhnaq-name="Logo and Name"] {
   }
 }
 
-/* =========================================================
-   STATIC MAP IMAGE - ALL SCREEN SIZES
-   ========================================================= */
 
-.site-static-map-root {
-  width: 100% !important;
-  max-width: 100% !important;
-  margin: 0 auto !important;
-  padding: 0 12px !important;
-  box-sizing: border-box !important;
-  overflow: hidden !important;
-  display: flex !important;
-  justify-content: center !important;
-}
-
-.site-static-map-frame {
-  width: 100% !important;
-  max-width: min(1118px, calc(100vw - 24px)) !important;
-  display: block !important;
-  margin: 0 auto !important;
-  overflow: hidden !important;
-}
-
-.site-static-map-image {
-  display: block !important;
-  width: 100% !important;
-  max-width: 100% !important;
-  height: auto !important;
-  margin: 0 auto !important;
-  object-fit: contain !important;
-}
 
 @media (min-width: 810px) {
   nav[data-uzhnaq-name="Default"],

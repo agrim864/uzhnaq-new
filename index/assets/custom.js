@@ -211,56 +211,58 @@ document.addEventListener("DOMContentLoaded", () => {
   };
   const footerBlueprintAsset = "../assets/footer/blueprint-bg.png";
   const footerGearOverlayAsset = "../assets/footer/gear-overlay.png";
-  const dropdownGroups = {
+    const dropdownGroups = {
     "About Us": {
       triggerId: "undefined-1njxbrf",
+      pageHref: "../about/about.html",
       lead: "Quick links to the story, direction, and people behind UZHNAQ.",
       items: [
         {
           title: "Our Mission",
           subtitle: "What drives the company",
-          href: "/about/about.html#mission",
+          href: "../about/about.html#mission",
         },
         {
           title: "Our Vision",
           subtitle: "Where we are heading",
-          href: "/about/about.html#vision",
+          href: "../about/about.html#vision",
         },
         {
           title: "Our Promise",
           subtitle: "Quality and delivery standards",
-          href: "/about/about.html#promise",
+          href: "../about/about.html#promise",
         },
         {
           title: "Leadership Team",
           subtitle: "Meet the people behind UZHNAQ",
-          href: "/about/about.html#team",
+          href: "../about/about.html#team",
         },
       ],
     },
     Products: {
       triggerId: "undefined-14p26ei",
+      pageHref: "../products/products.html",
       lead: "Jump directly to core drivetrain and transmission components.",
       items: [
         {
           title: "Main Drive",
           subtitle: "Heavy-duty gear systems",
-          href: "/products/products.html#maindrive",
+          href: "../products/products.html#maindrive",
         },
         {
           title: "Differential Gear",
           subtitle: "Balanced torque transfer",
-          href: "/products/products.html#differentialgear",
+          href: "../products/products.html#differentialgear",
         },
         {
           title: "Planet Gear",
           subtitle: "Compact power distribution",
-          href: "/products/products.html#planetgear",
+          href: "../products/products.html#planetgear",
         },
         {
           title: "Synchro Assembly",
           subtitle: "Smooth shifting components",
-          href: "/products/products.html#synchroassembly",
+          href: "../products/products.html#synchroassembly",
         },
       ],
     },
@@ -576,6 +578,14 @@ document.addEventListener("DOMContentLoaded", () => {
       .replace(/"/g, "&quot;")
       .replace(/'/g, "&#39;");
   }
+
+  function getVisibleWhyChooseContent() {
+  return Array.from(document.querySelectorAll('.uzhnaq-jUePe .uzhnaq-1mih4e8')).find((el) => {
+    if (!(el instanceof HTMLElement)) return false;
+    const style = window.getComputedStyle(el);
+    return style.display !== 'none' && style.visibility !== 'hidden' && el.offsetParent !== null;
+  });
+}
 
 
 
@@ -1372,8 +1382,8 @@ async function initGearboxThree() {
     modelRoot.position.sub(center);
 
     modelRoot.position.x += 0.64;
-    modelRoot.position.y -= 0.22;
-    modelRoot.scale.setScalar(1.22);
+    modelRoot.position.y -= 0.18;
+    modelRoot.scale.setScalar(1.00);
 
     const size = box.getSize(new THREE.Vector3());
     const maxDim = Math.max(size.x, size.y, size.z) * 1.22;
@@ -3653,6 +3663,8 @@ async function initGearboxThree() {
     });
   }
 
+  window.cleanupMobileNoise = cleanupMobileNoise;
+
   function toggleResponsiveDropdown(state) {
     if (state.isOpen) {
       closeResponsiveDropdown(state);
@@ -3741,20 +3753,43 @@ async function initGearboxThree() {
 
       closeResponsiveDropdown(state);
     });
+        const primaryHref =
+      config.pageHref || (config.items[0]?.href || "").replace(/#.*$/, "");
+
+    function navigateToPrimaryPage(event) {
+      if (!primaryHref) {
+        return;
+      }
+
+      event.preventDefault();
+      event.stopPropagation();
+
+      if (typeof event.stopImmediatePropagation === "function") {
+        event.stopImmediatePropagation();
+      }
+
+      closeResponsiveDropdown(state);
+      window.location.assign(primaryHref);
+    }
+
     trigger.addEventListener("keydown", (event) => {
       if (event.key === "Enter" || event.key === " ") {
+        navigateToPrimaryPage(event);
+        return;
+      }
+
+      if (event.key === "ArrowDown") {
         event.preventDefault();
-        toggleResponsiveDropdown(state);
+        openResponsiveDropdown(state);
+        return;
       }
 
       if (event.key === "Escape") {
         closeResponsiveDropdown(state);
       }
     });
-    trigger.addEventListener("click", (event) => {
-      event.preventDefault();
-      toggleResponsiveDropdown(state);
-    });
+
+    trigger.addEventListener("click", navigateToPrimaryPage);
 
     if (prefersHover) {
       trigger.addEventListener("pointerenter", () => {
@@ -4166,6 +4201,7 @@ async function initGearboxThree() {
 
 document.addEventListener("DOMContentLoaded", () => {
   const MOBILE_BREAKPOINT = 809.98;
+  const normalizedPath = window.location.pathname.replace(/\\/g, "/").toLowerCase();
   const inStandaloneIndexFolder = /\/index\//.test(normalizedPath);
   const pagePrefix = inStandaloneIndexFolder ? "../" : "./";
 
@@ -4232,7 +4268,7 @@ document.addEventListener("DOMContentLoaded", () => {
     branding.style.display = isMobileViewport() ? 'inline-flex' : 'none';
   }
 
-  function ensureMobileHeroTitleLogo() {
+    function ensureMobileHeroTitleLogo() {
     const title = Array.from(document.querySelectorAll('[data-uzhnaq-component-type="RichTextContainer"]'))
       .filter((element) => element instanceof HTMLElement)
       .find((element) => /passion.*precision.*performa/i.test((element.textContent || '').replace(/\s+/g, '').toLowerCase()));
@@ -4251,6 +4287,168 @@ document.addEventListener("DOMContentLoaded", () => {
 
     logo.style.display = isMobileViewport() ? 'block' : '';
   }
+
+  function fixWhyChooseUsSpacing() {
+  const setStyle = (node, styles) => {
+    if (!(node instanceof HTMLElement)) return;
+    Object.entries(styles).forEach(([property, value]) => {
+      node.style.setProperty(property, value, "important");
+    });
+  };
+
+  document.querySelectorAll(".uzhnaq-jUePe .uzhnaq-1mih4e8").forEach((content) => {
+    if (!(content instanceof HTMLElement)) return;
+
+    const originalTitleBox = content.querySelector(":scope > .uzhnaq-4s535g .uzhnaq-5yei0g h2");
+    const originalBodyBox = content.querySelector(":scope > .uzhnaq-14kcyas .uzhnaq-jao0go p");
+    const originalIcon = content.querySelector(":scope > .uzhnaq-1s1mf3w img");
+
+    if (!(originalTitleBox instanceof HTMLElement) || !(originalBodyBox instanceof HTMLElement)) {
+      return;
+    }
+
+    const headingCopy = (originalTitleBox.textContent || "").replace(/\s+/g, " ").trim().toLowerCase();
+    if (!headingCopy.includes("why choose")) {
+      return;
+    }
+
+    const isCompact = window.innerWidth <= MOBILE_BREAKPOINT;
+    const copyWidth = isCompact ? "332px" : "400px";
+    const iconWidth = isCompact ? "119px" : "155px";
+    const iconHeight = isCompact ? "104px" : "138px";
+    const titleGap = isCompact ? "18px" : "26px";
+    const bodyGap = isCompact ? "18px" : "22px";
+
+    let rebuilt = content.querySelector(":scope > .site-why-choose-rebuilt");
+
+    if (!(rebuilt instanceof HTMLElement)) {
+      const titleClone = originalTitleBox.cloneNode(true);
+      const bodyClone = originalBodyBox.cloneNode(true);
+
+      rebuilt = document.createElement("div");
+      rebuilt.className = "site-why-choose-rebuilt";
+
+      const iconWrap = document.createElement("div");
+      iconWrap.className = "site-why-choose-icon";
+
+      if (originalIcon instanceof HTMLImageElement) {
+        const iconClone = document.createElement("img");
+        iconClone.src = originalIcon.currentSrc || originalIcon.src;
+        iconClone.alt = originalIcon.alt || "UZHNAQ";
+        iconClone.decoding = "async";
+        iconClone.loading = "eager";
+        iconWrap.appendChild(iconClone);
+      }
+
+      const titleWrap = document.createElement("div");
+      titleWrap.className = "site-why-choose-title";
+      titleWrap.appendChild(titleClone);
+
+      const bodyWrap = document.createElement("div");
+      bodyWrap.className = "site-why-choose-body";
+      bodyWrap.appendChild(bodyClone);
+
+      const divider = document.createElement("div");
+      divider.className = "site-why-choose-divider";
+
+      rebuilt.appendChild(iconWrap);
+      rebuilt.appendChild(titleWrap);
+      rebuilt.appendChild(bodyWrap);
+      rebuilt.appendChild(divider);
+
+      content.innerHTML = "";
+      content.appendChild(rebuilt);
+      content.dataset.whyChooseRebuilt = "true";
+    }
+
+    const iconWrap = rebuilt.querySelector(".site-why-choose-icon");
+    const iconImg = rebuilt.querySelector(".site-why-choose-icon img");
+    const titleWrap = rebuilt.querySelector(".site-why-choose-title");
+    const bodyWrap = rebuilt.querySelector(".site-why-choose-body");
+    const divider = rebuilt.querySelector(".site-why-choose-divider");
+    const titleText = rebuilt.querySelector(".site-why-choose-title .uzhnaq-text");
+    const bodyText = rebuilt.querySelector(".site-why-choose-body .uzhnaq-text");
+
+    setStyle(content, {
+      display: "flex",
+      "flex-direction": "column",
+      "align-items": "center",
+      "justify-content": "flex-start",
+      gap: "0",
+      width: "100%",
+      "max-width": copyWidth,
+      height: "auto",
+      padding: "0",
+      overflow: "visible",
+      position: "relative"
+    });
+
+    setStyle(rebuilt, {
+      display: "flex",
+      "flex-direction": "column",
+      "align-items": "center",
+      "justify-content": "flex-start",
+      width: "100%",
+      "max-width": copyWidth,
+      margin: "0 auto",
+      overflow: "visible"
+    });
+
+    setStyle(iconWrap, {
+      width: iconWidth,
+      height: iconHeight,
+      margin: "0 0 14px 0",
+      display: "flex",
+      "align-items": "center",
+      "justify-content": "center",
+      overflow: "hidden"
+    });
+
+    setStyle(iconImg, {
+      width: "100%",
+      height: "100%",
+      "object-fit": "contain",
+      display: "block"
+    });
+
+    setStyle(titleWrap, {
+      width: "100%",
+      margin: `0 0 ${titleGap} 0`,
+      display: "block",
+      position: "relative",
+      overflow: "visible"
+    });
+
+    setStyle(bodyWrap, {
+      width: "100%",
+      "max-width": copyWidth,
+      margin: `0 0 ${bodyGap} 0`,
+      display: "block",
+      position: "relative",
+      overflow: "visible"
+    });
+
+    setStyle(divider, {
+      width: "50%",
+      height: "1px",
+      margin: "0 auto",
+      background: "rgba(255,255,255,0.16)",
+      display: "block"
+    });
+
+    if (titleText instanceof HTMLElement) {
+      titleText.style.setProperty("text-align", "center", "important");
+      titleText.style.setProperty("margin", "0", "important");
+      titleText.style.setProperty("line-height", "1.12", "important");
+    }
+
+    if (bodyText instanceof HTMLElement) {
+      bodyText.style.setProperty("text-align", "center", "important");
+      bodyText.style.setProperty("margin", "0", "important");
+      bodyText.style.setProperty("line-height", "1.4", "important");
+    }
+  });
+}
 
   function cleanupMobileDuplicateButtons() {
     if (!isMobileViewport()) {
@@ -4426,22 +4624,120 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  ensureMobileHeaderButtonsStable();
+    ensureMobileHeaderButtonsStable();
   ensureMobileHeaderBranding();
   ensureMobileHeroTitleLogo();
+  fixWhyChooseUsSpacing();
   cleanupMobileDuplicateButtons();
   removeLeakingMobileNavBlocks();
   initCarouselControlsFallback();
-  if (typeof replaceGlobalMapWithStaticImage === "function") {
-    replaceGlobalMapWithStaticImage();
+
+  if (document.fonts?.ready) {
+    document.fonts.ready.then(() => {
+      window.requestAnimationFrame(fixWhyChooseUsSpacing);
+    });
   }
+
+  window.addEventListener('load', () => {
+    window.requestAnimationFrame(fixWhyChooseUsSpacing);
+  }, { once: true });
+
+  if ('ResizeObserver' in window) {
+    const whyChooseObserver = new ResizeObserver(() => {
+      window.requestAnimationFrame(fixWhyChooseUsSpacing);
+    });
+
+    document.querySelectorAll('.uzhnaq-jUePe .uzhnaq-1mih4e8').forEach((node) => {
+      if (node instanceof HTMLElement) {
+        whyChooseObserver.observe(node);
+      }
+    });
+  }
+
+    function replaceGlobalMapWithStaticImage() {
+    const oldMapImages = Array.from(
+      document.querySelectorAll('img[src*="50pPxGlN45r3Ut7lZNgyiMG5g"]')
+    );
+
+    if (!oldMapImages.length) return;
+
+    const heading = Array.from(
+      document.querySelectorAll('[data-uzhnaq-component-type="RichTextContainer"], h1, h2, h3, p, div')
+    ).find((element) => {
+      const text = (element.textContent || "").replace(/\s+/g, " ").trim();
+      return /our global presence/i.test(text);
+    });
+
+    if (!(heading instanceof HTMLElement)) return;
+
+    let stage = oldMapImages[0].closest("div");
+    while (
+      stage instanceof HTMLElement &&
+      stage.parentElement instanceof HTMLElement &&
+      !stage.parentElement.contains(heading)
+    ) {
+      stage = stage.parentElement;
+    }
+
+    if (!(stage instanceof HTMLElement)) return;
+    if (stage.dataset.siteStaticMapMounted === "true") return;
+
+    const mapCandidates = [
+      new URL("./map.png", window.location.href).toString(),
+      new URL("../map.png", window.location.href).toString(),
+      new URL("./assets/images/map.png", window.location.href).toString(),
+      new URL("../assets/images/map.png", window.location.href).toString()
+    ];
+
+    const root = document.createElement("div");
+    root.className = "site-static-map-root";
+
+    const frame = document.createElement("div");
+    frame.className = "site-static-map-frame";
+
+    const image = document.createElement("img");
+    image.className = "site-static-map-image";
+    image.alt = "Our global presence map";
+    image.loading = "eager";
+    image.decoding = "async";
+    image.width = 1802;
+    image.height = 932;
+
+    const applyCandidate = (index = 0) => {
+      const candidate = mapCandidates[index];
+      if (!candidate) return;
+
+      image.onerror = () => applyCandidate(index + 1);
+      image.onload = () => {
+        image.dataset.siteMapLoaded = "true";
+      };
+      image.src = candidate;
+    };
+
+    applyCandidate(0);
+
+    frame.appendChild(image);
+    root.appendChild(frame);
+
+    stage.innerHTML = "";
+    stage.classList.add("site-static-map-stage");
+    stage.dataset.siteStaticMapMounted = "true";
+    stage.appendChild(root);
+  }
+
+  replaceGlobalMapWithStaticImage();
+
   window.addEventListener('resize', ensureMobileHeaderButtonsStable);
   window.addEventListener('resize', ensureMobileHeaderBranding);
   window.addEventListener('resize', ensureMobileHeroTitleLogo);
+  window.addEventListener('resize', fixWhyChooseUsSpacing);
+  window.addEventListener('orientationchange', fixWhyChooseUsSpacing);
   window.addEventListener('resize', cleanupMobileDuplicateButtons);
   window.addEventListener('resize', removeLeakingMobileNavBlocks);
   window.setTimeout(removeLeakingMobileNavBlocks, 120);
   window.setTimeout(removeLeakingMobileNavBlocks, 500);
+  window.setTimeout(fixWhyChooseUsSpacing, 120);
+  window.setTimeout(fixWhyChooseUsSpacing, 500);
 });
 
 (function () {
@@ -4516,14 +4812,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", decorateExistingTriggers, { once: true });
-  } else {
+    } else {
     decorateExistingTriggers();
-    cleanupMobileNoise();
+    window.cleanupMobileNoise?.();
   }
 
   window.addEventListener("load", function () {
     decorateExistingTriggers();
-    cleanupMobileNoise();
+    window.cleanupMobileNoise?.();
   }, { once: true });
   document.addEventListener("click", navigate, true);
   document.addEventListener("keydown", function (event) {
@@ -4540,8 +4836,8 @@ window.addEventListener("resize", () => {
     }
   });
 
-  if (typeof cleanupMobileNoise === "function") {
-    cleanupMobileNoise();
+    if (typeof window.cleanupMobileNoise === "function") {
+    window.cleanupMobileNoise();
   }
 });
 
@@ -4552,8 +4848,8 @@ window.addEventListener("load", () => {
     }
   });
 
-  if (typeof cleanupMobileNoise === "function") {
-    cleanupMobileNoise();
+  if (typeof window.cleanupMobileNoise === "function") {
+    window.cleanupMobileNoise();
   }
 });
 
